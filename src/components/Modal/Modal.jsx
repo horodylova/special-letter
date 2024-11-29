@@ -29,8 +29,7 @@ const Modal = ({ onClose, onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Email submitted:", email);
-    setFormData({
+     setFormData({
       email: "",
       name: "",
       senderEmail: "",
@@ -38,6 +37,7 @@ const Modal = ({ onClose, onSubmit }) => {
       messenger: "",
     });
     onSubmit(formData);
+    console.log(formData);
   };
 
   return (
@@ -55,7 +55,7 @@ const Modal = ({ onClose, onSubmit }) => {
               value={formData.name}
               onChange={handleChange}
               placeholder="Your Name"
-              required
+            
             />
           </Label>
 
@@ -91,7 +91,7 @@ const Modal = ({ onClose, onSubmit }) => {
               value={formData.letterName}
               onChange={handleChange}
               placeholder="Letter From Tim Berners-Lee"
-              required
+              
             />
           </Label>
 
