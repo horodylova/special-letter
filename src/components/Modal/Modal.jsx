@@ -8,13 +8,13 @@ import {
     Form
   } from "./Modal.styled";
 
-const Modal = ({onClose}) =>   {
+const Modal = ({onClose, onSubmit}) =>   {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(email);
-        setEmail("")
-        onClose();
+        console.log("Email submitted:", email);
+        setEmail("");
+        onSubmit();
     }
 
     const [email, setEmail] = useState("")
