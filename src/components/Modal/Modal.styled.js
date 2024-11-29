@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import envelopeIcon from "../../../public/letter.jpeg"
+import envelopeIcon from "../../../public/letter.jpeg";
 
 export const Overlay = styled.div`
   position: fixed;
@@ -15,7 +15,7 @@ export const Overlay = styled.div`
 `;
 
 export const ModalContainer = styled.div`
-  background: #f9f6f1; 
+  background: #f9f6f1;
   padding: 20px;
   border-radius: 10px;
   width: 90%;
@@ -39,19 +39,18 @@ export const CloseButton = styled.button`
     color: #e76f51;
   }
 `;
+
 export const Form = styled.form`
   display: flex;
-  align-items: center;  
-  justify-content: center; 
-  gap: 10px;  
+  flex-direction: column; 
+  // align-items: center;
+  gap: 15px;
   margin: 20px 0;
 `;
 
 export const Input = styled.input`
-  width: calc(100% - 40px);
-  max-width: 350px;
+  width: 100%;
   padding: 10px;
-  margin: 20px 0;
   border-radius: 6px;
   border: 1px solid #ccc;
   font-size: 16px;
@@ -65,10 +64,13 @@ export const SubmitButton = styled.button`
   cursor: pointer;
   width: 50px;
   height: 50px;
-  background-image: url(${envelopeIcon}); 
+  background-image: url(${envelopeIcon});
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+  display: block; 
+  margin: 20px auto 0; 
+  text-align: center;
 
   &:hover {
     transform: scale(1.1);
@@ -76,6 +78,31 @@ export const SubmitButton = styled.button`
   }
 
   &:active {
-    transform: scale(1); 
+    transform: scale(1);
+  }
+`;
+
+export const Label = styled.label`
+  font-size: 14px;
+  color: #333;
+  text-align: left;
+  display: flex;
+  flex-direction: column; 
+  gap: 5px;
+`;
+
+export const Select = styled.select`
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  background-color: #fff;
+  appearance: none; 
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    border-color: #007bff; 
   }
 `;
