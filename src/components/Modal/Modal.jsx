@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import sendToKestra from "../../api/sendToKestra"
 import {
   Overlay,
   ModalContainer,
@@ -25,20 +26,29 @@ const Modal = ({ onClose, onSubmit }) => {
       ...prev,
       [name]: value,
     }));
+
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-     setFormData({
-      email: "",
-      name: "",
-      senderEmail: "",
-      letterName: "",
-      messenger: "",
-    });
-    onSubmit(formData);
-    console.log(formData);
+    try {
+      const response = await sendToKestra(formData);
+      console.log("Response from Kestra:", response);
+
+       setFormData({
+        email: "",
+        name: "",
+        senderEmail: "",
+        letterName: "",
+        messenger: "",
+      });
+
+      onSubmit();
+    } catch (error) {
+      console.log("Failed to send data. Please try again.");
+    }
   };
+
 
   return (
     <Overlay>
