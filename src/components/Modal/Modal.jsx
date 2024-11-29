@@ -18,6 +18,7 @@ const Modal = ({ onClose, onSubmit }) => {
     senderEmail: "",
     letterName: "",
     messenger: "",
+    executionId: "12345", 
   });
 
   const handleChange = (e) => {
@@ -41,6 +42,7 @@ const Modal = ({ onClose, onSubmit }) => {
         senderEmail: "",
         letterName: "",
         messenger: "",
+        executionId: "12345", 
       });
 
       onSubmit();
