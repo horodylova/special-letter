@@ -18,8 +18,10 @@ const Modal = ({ onClose, onSubmit }) => {
     senderEmail: "",
     letterName: "",
     messenger: "",
-    executionId: "12345", 
+    executionId: "", 
   });
+
+  const [statusMessage, setStatusMessage] = useState(""); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,30 +29,26 @@ const Modal = ({ onClose, onSubmit }) => {
       ...prev,
       [name]: value,
     }));
-
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await sendToKestra(formData);
-      console.log("Response from Kestra:", response);
-
-       setFormData({
+      await sendToKestra(formData);
+      setStatusMessage("Data successfully sent!");
+      setFormData({
         email: "",
         name: "",
         senderEmail: "",
         letterName: "",
         messenger: "",
-        executionId: "12345", 
+        executionId: "", 
       });
-
       onSubmit();
     } catch (error) {
-      console.log("Failed to send data. Please try again.");
+      setStatusMessage("Failed to send data. Please try again.");
     }
   };
-
 
   return (
     <Overlay>
@@ -58,7 +56,6 @@ const Modal = ({ onClose, onSubmit }) => {
         <CloseButton onClick={onClose}>×</CloseButton>
         <h2>Leave your email</h2>
         <Form onSubmit={handleSubmit}>
-       
           <Label>
             Your Name:
             <Input
@@ -67,10 +64,8 @@ const Modal = ({ onClose, onSubmit }) => {
               value={formData.name}
               onChange={handleChange}
               placeholder="Your Name"
-            
             />
           </Label>
-
           <Label>
             Your Email:
             <Input
@@ -82,7 +77,6 @@ const Modal = ({ onClose, onSubmit }) => {
               required
             />
           </Label>
-
           <Label>
             Sender's Email:
             <Input
@@ -94,7 +88,6 @@ const Modal = ({ onClose, onSubmit }) => {
               required
             />
           </Label>
-
           <Label>
             Special Letter Name:
             <Input
@@ -103,10 +96,8 @@ const Modal = ({ onClose, onSubmit }) => {
               value={formData.letterName}
               onChange={handleChange}
               placeholder="Letter From Tim Berners-Lee"
-              
             />
           </Label>
-
           <Label>
             Preferred Messenger:
             <Select
@@ -123,8 +114,10 @@ const Modal = ({ onClose, onSubmit }) => {
           </Label>
           <SubmitButton type="submit"></SubmitButton>
         </Form>
+        {statusMessage && <p>{statusMessage}</p>}
       </ModalContainer>
     </Overlay>
   );
 };
+
 export default Modal;
