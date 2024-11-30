@@ -8,8 +8,7 @@ const sendToKestra = async (formData) => {
     flowId: 'special-letter',
     inputs: {
       email: formData.email,
-      password: formData.password,
-      senderEmail: formData.senderEmail,
+      name: formData.name,
       messenger: formData.messenger,
     }
   };

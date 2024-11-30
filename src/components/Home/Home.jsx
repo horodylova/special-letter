@@ -1,26 +1,24 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
     HomeContainer,
     Title,
     Description,
     Button,
-  } from "./Home.styled"
+} from "./Home.styled"
 
-const Home = ({onButtonClick}) => {
-  
+const Home = ({ onButtonClick }) => {
     return (
         <HomeContainer>
-        <Title>Your special letter is on its way</Title>
-        <Description>
-          Hello! I’m your dedicated letter courier.  
-          I understand how important it is for you to receive your letter as quickly as possible.  
-          Let me take care of checking your inbox for you.  
-          Simply leave me your instructions, and I’ll handle the rest.  
-          I’ll check your email for you every few minutes and send you a notification in your messenger as soon as the long-awaited letter lands in your inbox.
-        </Description>
-        <Button onClick={onButtonClick}>Notify Me Instantly</Button>
-      </HomeContainer>
+            <Title>Get your special letter delivered to you</Title>
+            <Description>
+                Hello! We’re excited to bring you personalized, motivational letters right to your inbox.  
+                With just one click, you’ll start receiving positive and uplifting messages from us.  
+                No need to worry about missing out on our emails – we’ve got it all covered! 
+                Simply leave us your information, and we’ll send you your first special letter.
+            </Description>
+            <Button onClick={onButtonClick}>Subscribe for Special Letters</Button>
+        </HomeContainer>
     )
-  
 }
+
 export default Home;

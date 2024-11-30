@@ -15,7 +15,6 @@ const Modal = ({ onClose, onSubmit }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    senderEmail: "",
     messenger: "",
   });
 
@@ -36,9 +35,7 @@ const Modal = ({ onClose, onSubmit }) => {
       setStatusMessage("Data successfully sent!");
       setFormData({
         email: "",
-        password: "",
-        senderEmail: "",
-        messenger: "",
+        name: ""
       });
       onSubmit();
     } catch (error) {
@@ -50,8 +47,19 @@ const Modal = ({ onClose, onSubmit }) => {
     <Overlay>
       <ModalContainer>
         <CloseButton onClick={onClose}>×</CloseButton>
-        <h2>Provide Your Email and Password</h2>
+        <h2>Provide Your Name and Email</h2>
         <Form onSubmit={handleSubmit}>
+          <Label>
+            Your Name:
+            <Input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Svitlana Horodylova"
+              required
+            />
+          </Label>
           <Label>
             Your Email:
             <Input
@@ -60,28 +68,6 @@ const Modal = ({ onClose, onSubmit }) => {
               value={formData.email}
               onChange={handleChange}
               placeholder="your-email@example.com"
-              required
-            />
-          </Label>
-          <Label>
-            Your Password:
-            <Input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Enter your email password"
-              required
-            />
-          </Label>
-          <Label>
-            Sender's Email:
-            <Input
-              type="email"
-              name="senderEmail"
-              value={formData.senderEmail}
-              onChange={handleChange}
-              placeholder="sender@example.com"
               required
             />
           </Label>
