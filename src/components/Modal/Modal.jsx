@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import sendToKestra from "../../api/sendToKestra"
+import sendToKestra from "../../api/sendToKestra";
 import {
   Overlay,
   ModalContainer,
@@ -8,20 +8,18 @@ import {
   SubmitButton,
   Form,
   Label,
-  Select
+  Select,
 } from "./Modal.styled";
 
 const Modal = ({ onClose, onSubmit }) => {
   const [formData, setFormData] = useState({
     email: "",
-    name: "",
+    password: "",
     senderEmail: "",
-    letterName: "",
     messenger: "",
-    executionId: "", 
   });
 
-  const [statusMessage, setStatusMessage] = useState(""); 
+  const [statusMessage, setStatusMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,11 +36,9 @@ const Modal = ({ onClose, onSubmit }) => {
       setStatusMessage("Data successfully sent!");
       setFormData({
         email: "",
-        name: "",
+        password: "",
         senderEmail: "",
-        letterName: "",
         messenger: "",
-        executionId: "", 
       });
       onSubmit();
     } catch (error) {
@@ -54,18 +50,8 @@ const Modal = ({ onClose, onSubmit }) => {
     <Overlay>
       <ModalContainer>
         <CloseButton onClick={onClose}>×</CloseButton>
-        <h2>Leave your email</h2>
+        <h2>Provide Your Email and Password</h2>
         <Form onSubmit={handleSubmit}>
-          <Label>
-            Your Name:
-            <Input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Your Name"
-            />
-          </Label>
           <Label>
             Your Email:
             <Input
@@ -78,6 +64,17 @@ const Modal = ({ onClose, onSubmit }) => {
             />
           </Label>
           <Label>
+            Your Password:
+            <Input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Enter your email password"
+              required
+            />
+          </Label>
+          <Label>
             Sender's Email:
             <Input
               type="email"
@@ -86,16 +83,6 @@ const Modal = ({ onClose, onSubmit }) => {
               onChange={handleChange}
               placeholder="sender@example.com"
               required
-            />
-          </Label>
-          <Label>
-            Special Letter Name:
-            <Input
-              type="text"
-              name="letterName"
-              value={formData.letterName}
-              onChange={handleChange}
-              placeholder="Letter From Tim Berners-Lee"
             />
           </Label>
           <Label>
@@ -121,3 +108,5 @@ const Modal = ({ onClose, onSubmit }) => {
 };
 
 export default Modal;
+
+
