@@ -12,10 +12,12 @@ services:
       MICRONAUT_SERVER_CORS_ALLOWEDORIGINS: "http://localhost:5173"
       MICRONAUT_SERVER_CORS_ALLOWEDMETHODS: "GET,POST,OPTIONS"
       MICRONAUT_SERVER_CORS_ALLOWEDHEADERS: "Content-Type,Authorization"
+      MICRONAUT_SERVER_CORS_EXPOSEDHEADERS: "Authorization"
+      MICRONAUT_SERVER_CORS_MAXAGE: "3600"
     ports:
       - "8080:8080"
     volumes:
-      - ./kestra-flows:/data/flows  
+      - ./kestra-flows:/data/flows
     depends_on:
       - postgres
     restart: always

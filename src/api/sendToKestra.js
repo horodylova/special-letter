@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const sendToKestra = async (formData) => {
-  const URL = 'http://localhost:8080/api/v1/flows/special-letter/execute';
+  const URL = '/api/app.emails/special-letter/abcdefg';
 
   const requestData = {
     namespace: 'app.emails',
@@ -28,6 +28,7 @@ const sendToKestra = async (formData) => {
     throw error;
   }
 };
+
 
 
 export default sendToKestra;
