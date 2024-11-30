@@ -14,7 +14,7 @@ import {
 const Modal = ({ onClose, onSubmit }) => {
   const [formData, setFormData] = useState({
     email: "",
-    password: "",
+    name: "",
     messenger: "",
   });
 
@@ -35,7 +35,8 @@ const Modal = ({ onClose, onSubmit }) => {
       setStatusMessage("Data successfully sent!");
       setFormData({
         email: "",
-        name: ""
+        name: "",
+        messenger: "",
       });
       onSubmit();
     } catch (error) {
