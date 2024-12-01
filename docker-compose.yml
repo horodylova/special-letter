@@ -5,7 +5,7 @@ services:
     image: kestra/kestra:latest
     container_name: kestra
     environment:
-      KESTRA_DATABASE_URL: jdbc:postgresql://postgres/kestra
+      KESTRA_DATABASE_URL: jdbc:postgresql://kestra_postgres/kestra
       KESTRA_DATABASE_USERNAME: kestra
       KESTRA_DATABASE_PASSWORD: kestra
       MICRONAUT_SERVER_CORS_ENABLED: "true"
@@ -36,5 +36,3 @@ services:
 volumes:
   postgres_data:
     driver: local
-
-

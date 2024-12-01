@@ -1,42 +1,26 @@
-import { useState } from "react";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Home from "./components/Home/Home";
+import LettersPage from "./components/Letters/LettersPage";
+import { Header, Nav, NavLink } from "./components/App/App.styled";
 
-import Home from "./components/Home/Home"
-import Modal from "./components/Modal/Modal"
-import SecondModal from "./components/SecondModal/SecondModal";
-
-import {openModal, closeModal} from "./modalLogic"
- 
 function App() {
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isSecondModalOpen, setIsSecondModalOpen] = useState(false)
-
-  const handleOpenModal = () => {
-    openModal(setIsModalOpen)
-  }
-
-  const handleCloseModal = () => {
-    closeModal (setIsModalOpen)
-  }
-
-  const handleFormSubmit = () => {
-    closeModal(setIsModalOpen)
-    openModal(setIsSecondModalOpen)
-  }
-
-  const handleCloseSecondModal = () => {
-    closeModal(setIsSecondModalOpen)
-  }
   return (
-    <div>
-    <Home onButtonClick={handleOpenModal} />
-    {isModalOpen && (
-      <Modal onClose={handleCloseModal} onSubmit={handleFormSubmit} />
-    )}
-    {isSecondModalOpen && (
-      <SecondModal onClose={handleCloseSecondModal} />
-    )}
-  </div>
-  )
+    <Router>
+      <Header>
+        <Nav>
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/letters">Letters</NavLink>
+        </Nav>
+      </Header>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/letters" element={<LettersPage />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
+
+

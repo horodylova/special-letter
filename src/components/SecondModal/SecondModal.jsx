@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   Overlay,
   ModalContainer,
@@ -12,7 +12,7 @@ const SecondModal = ({ onClose }) => {
       <ModalContainer>
         <CloseButton onClick={onClose}>×</CloseButton>
         <Message>
-          Thank you for subscribing! Your subscription is now active, and you’ll soon receive your first motivational letter. Keep an eye on your inbox! We’re delighted to have you with us and hope our letters will be valuable to you.
+          Your letter has been successfully written and saved! It’s now securely stored and will be delivered on the date you’ve chosen. Thank you for sharing your thoughts and trusting us to keep them safe. Until then, your letter remains sealed.
         </Message>
       </ModalContainer>
     </Overlay>
@@ -20,3 +20,4 @@ const SecondModal = ({ onClose }) => {
 };
 
 export default SecondModal;
+

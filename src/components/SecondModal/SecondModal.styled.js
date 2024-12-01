@@ -14,7 +14,7 @@ export const Overlay = styled.div`
 `;
 
 export const ModalContainer = styled.div`
-  background: #f9f6f1; /* Мягкий бежевый фон */
+  background: #f9f6f1;
   padding: 20px;
   border-radius: 10px;
   width: 90%;
@@ -35,7 +35,7 @@ export const CloseButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    color: #e76f51; /* Нежный оранжевый при наведении */
+    color: #e76f51;
   }
 `;
 

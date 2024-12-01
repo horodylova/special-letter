@@ -1,24 +1,23 @@
-import React from 'react'
-import {
-    HomeContainer,
-    Title,
-    Description,
-    Button,
-} from "./Home.styled"
+import React from "react";
+import { Link } from "react-router-dom";
+import { HomeContainer, ContentWrapper, Header, Description, Button } from "./Home.styled";
 
-const Home = ({ onButtonClick }) => {
-    return (
-        <HomeContainer>
-            <Title>Get your special letter delivered to you</Title>
-            <Description>
-                Hello! We’re excited to bring you personalized, motivational letters right to your inbox.  
-                With just one click, you’ll start receiving positive and uplifting messages from us.  
-                No need to worry about missing out on our emails – we’ve got it all covered! 
-                Simply leave us your information, and we’ll send you your first special letter.
-            </Description>
-            <Button onClick={onButtonClick}>Subscribe for Special Letters</Button>
-        </HomeContainer>
-    )
-}
+const Home = () => {
+  return (
+    <HomeContainer>
+      <ContentWrapper>
+        <Header>Write a Letter to Your Future Self</Header>
+        <Description>
+          Imagine opening a letter that has been waiting for you for years. Who will you be in the future? What are your goals, your dreams, your thoughts? Where do you live? Who are the people around you? Write down your advice, your wishes, and everything else you want to say to your future self.
+        </Description>
+        <Link to="/letters">
+          <Button>View Your Letters</Button>
+        </Link>
+      </ContentWrapper>
+    </HomeContainer>
+  );
+};
 
 export default Home;
+
+

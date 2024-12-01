@@ -8,14 +8,13 @@ import {
   SubmitButton,
   Form,
   Label,
-  Select,
+  TextArea,
 } from "./Modal.styled";
 
 const Modal = ({ onClose, onSubmit }) => {
   const [formData, setFormData] = useState({
-    email: "",
-    name: "",
-    messenger: "",
+    text: "",
+    deliveryDate: "",
   });
 
   const [statusMessage, setStatusMessage] = useState("");
@@ -32,15 +31,14 @@ const Modal = ({ onClose, onSubmit }) => {
     e.preventDefault();
     try {
       await sendToKestra(formData);
-      setStatusMessage("Data successfully sent!");
+      setStatusMessage("Your letter has been saved!");
       setFormData({
-        email: "",
-        name: "",
-        messenger: "",
+        text: "",
+        deliveryDate: "",
       });
       onSubmit();
     } catch (error) {
-      setStatusMessage("Failed to send data. Please try again.");
+      setStatusMessage("Failed to save your letter. Please try again.");
     }
   };
 
@@ -48,43 +46,27 @@ const Modal = ({ onClose, onSubmit }) => {
     <Overlay>
       <ModalContainer>
         <CloseButton onClick={onClose}>×</CloseButton>
-        <h2>Provide Your Name and Email</h2>
+        <h2>Write Your Letter</h2>
         <Form onSubmit={handleSubmit}>
           <Label>
-            Your Name:
-            <Input
-              type="text"
-              name="name"
-              value={formData.name}
+            Your Letter:
+            <TextArea
+              name="text"
+              value={formData.text}
               onChange={handleChange}
-              placeholder="Svitlana Horodylova"
+              placeholder="Write your message here..."
               required
             />
           </Label>
           <Label>
-            Your Email:
+            Delivery Date:
             <Input
-              type="email"
-              name="email"
-              value={formData.email}
+              type="date"
+              name="deliveryDate"
+              value={formData.deliveryDate}
               onChange={handleChange}
-              placeholder="your-email@example.com"
               required
             />
-          </Label>
-          <Label>
-            Preferred Messenger:
-            <Select
-              name="messenger"
-              value={formData.messenger}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select Messenger</option>
-              <option value="WhatsApp">WhatsApp</option>
-              <option value="Discord">Discord</option>
-              <option value="Slack">Slack</option>
-            </Select>
           </Label>
           <SubmitButton type="submit"></SubmitButton>
         </Form>
