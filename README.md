@@ -93,6 +93,7 @@ http://localhost:8080
 
 ## Create a new flow with the following details:
 
+```
  id: special-letter
 namespace: app.emails
 
@@ -116,6 +117,7 @@ triggers:
   - id: webhook
     type: io.kestra.plugin.core.trigger.Webhook
     key: abcdefg
+```
 
 **Step 7: Test and Play with the Project**
 
