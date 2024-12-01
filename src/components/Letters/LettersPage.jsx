@@ -11,6 +11,7 @@ import {
 } from "./LettersPage.styled";
 import Modal from "../Modal/Modal";
 import cardImage from "../../assets/letter_card.jpeg";
+import { isToday } from "../../utils/dateUtils";
 
 const LettersPage = () => {
   const [letters, setLetters] = useState([]);
@@ -50,8 +51,11 @@ const LettersPage = () => {
             <Card key={index}>
               <CardImage src={cardImage} alt="Sealed Letter" />
               <CardContent>
-                <CardTitle>Open {letter.deliveryDate}</CardTitle>
+                <CardTitle>Open on {letter.deliveryDate}</CardTitle>
                 <p>{letter.text}</p>
+                {isToday(letter.deliveryDate) && (
+                  <Button>Time to open this letter</Button>
+                )}
               </CardContent>
             </Card>
           ))}
@@ -64,6 +68,7 @@ const LettersPage = () => {
 };
 
 export default LettersPage;
+
 
 
 
