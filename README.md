@@ -3,6 +3,22 @@
 
 This project allows users to write letters to their future selves, save them, and schedule them for delivery. It includes a React-based frontend, a PostgreSQL database for storing letters, and Kestra for orchestrating letter delivery.
 
+# About Idea
+
+Imagine reading a letter you wrote to yourself 10 years ago. Today, you’re 17, and in 10 years, you’ll be 27. What will you be like? 
+Will you have a family? 
+Will you be famous? 
+Where will you live? 
+
+Travel through time with your letters. Write about your dreams, your concerns, and your hopes for yourself.
+
+How exciting will it be to open and read it years later?
+**A small tip:**
+
+Write a letter and set today’s date. 
+
+That way, you can open it right away. The other letters you write for the future will only be accessible on the date you set.
+
 
 ## Requirements
 
