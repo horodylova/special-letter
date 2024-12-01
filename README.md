@@ -22,20 +22,20 @@ To work on this project, you will need:
 
 ## Installation
 
-Step 1: Clone the Repository
+**Step 1: Clone the Repository**
 
 ```bash
   git clone https://github.com/horodylova/special-letter.git
 cd special-letter
 ```
 
-Step 2: Install Dependencies
+**Step 2: Install Dependencies**
 
 ```bash
  npm install
 ```
 
-Step 3: Run the Frontend
+**Step 3: Run the Frontend**
 
 Start the development server:
 
@@ -47,14 +47,14 @@ Open your browser and navigate to:
 
 http://localhost:5173
 
-Step 4: Launch Docker Services
+**Step 4: Launch Docker Services**
 
 Start the Docker services for PostgreSQL and Kestra:
 
 ```bash 
 docker-compose up -d
 ```
-Step 5: Configure the Database
+**Step 5: Configure the Database**
 Access the PostgreSQL database and create the required table:
 
 ```bash 
@@ -67,7 +67,7 @@ CREATE TABLE letters (
   open_at TIMESTAMP NOT NULL
 );
 
-Step 6: Configure Kestra Flow
+**Step 6: Configure Kestra Flow**
 
 Open the Kestra dashboard:
  
@@ -100,7 +100,7 @@ triggers:
     type: io.kestra.plugin.core.trigger.Webhook
     key: abcdefg
 
-Step 7: Test and Play with the Project
+**Step 7: Test and Play with the Project**
 
 Use the frontend to create and view letters.
 Verify that the letters are correctly stored in the letters table in the PostgreSQL database.
@@ -111,7 +111,6 @@ curl -X POST http://localhost:8080/api/app.emails/special-letter/abcdefg \
   -H "Content-Type: application/json" \
   -d '{"text": "Hello, future!", "deliveryDate": "2025-01-01"}'
 ```
-
 
 ## Tech Stack
 
@@ -127,5 +126,6 @@ Frontend: http://localhost:5173
 Kestra Dashboard: http://localhost:8080
 ## Support
 
-For support, email fhorodylova.sv@gmail.com.com.
+For support, [Email Me](mailto:horodylova.sv@gmail.com)
+
 
