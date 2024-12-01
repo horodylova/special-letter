@@ -126,9 +126,13 @@ Verify that the letters are correctly stored in the letters table in the Postgre
 Use tools like curl or Postman to interact with the webhook endpoint:
  
 ```bash 
-curl -X POST http://localhost:8080/api/app.emails/special-letter/abcdefg \
-  -H "Content-Type: application/json" \
-  -d '{"text": "Hello, future!", "deliveryDate": "2025-01-01"}'
+curl -X POST http://localhost:8080/api/v1/executions/webhook/app.emails/special-letter/abcdefg \
+-H "Content-Type: application/json" \
+-d '{
+  "text": "This is a letter to my future self.",
+  "deliveryDate": "2033-11-30"
+}'
+
 ```
 
 ## Tech Stack
