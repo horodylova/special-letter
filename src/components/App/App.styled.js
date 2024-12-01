@@ -2,12 +2,12 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Header = styled.header`
-  background-color: #333;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+background-color: #e76f51;
+padding: 20px;
+display: flex;
+justify-content: center;
+align-items: center;
+box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 `;
 
 export const Nav = styled.nav`
