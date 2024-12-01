@@ -31,14 +31,14 @@ const Modal = ({ onClose, onSubmit }) => {
     e.preventDefault();
     try {
       await sendToKestra(formData);
-      setStatusMessage("Your letter has been saved!");
+      onSubmit(formData);
+      setStatusMessage("Your letter has been saved and sent!");
       setFormData({
         text: "",
         deliveryDate: "",
       });
-      onSubmit();
     } catch (error) {
-      setStatusMessage("Failed to save your letter. Please try again.");
+      setStatusMessage("Failed to send your letter. Please try again.");
     }
   };
 
@@ -68,7 +68,7 @@ const Modal = ({ onClose, onSubmit }) => {
               required
             />
           </Label>
-          <SubmitButton type="submit"></SubmitButton>
+          <SubmitButton type="submit">Send</SubmitButton>
         </Form>
         {statusMessage && <p>{statusMessage}</p>}
       </ModalContainer>
@@ -77,5 +77,6 @@ const Modal = ({ onClose, onSubmit }) => {
 };
 
 export default Modal;
+
 
 

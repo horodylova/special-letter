@@ -7,7 +7,7 @@ align-items: center;
 justify-content: center;
 text-align: center;
 height: 100vh; 
-background: url(${backgroundImage}) no-repeat center center;
+background-color: #f9f6f1;
 background-size: cover;
 overflow: hidden;
 `;

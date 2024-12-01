@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   PageContainer,
   CardContainer,
@@ -6,7 +6,6 @@ import {
   CardImage,
   CardContent,
   CardTitle,
-  CardDate,
   EmptyMessage,
   Button,
 } from "./LettersPage.styled";
@@ -16,6 +15,17 @@ import cardImage from "../../assets/letter_card.jpeg";
 const LettersPage = () => {
   const [letters, setLetters] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    const storedLetters = localStorage.getItem("letters");
+    if (storedLetters) {
+      setLetters(JSON.parse(storedLetters));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("letters", JSON.stringify(letters));
+  }, [letters]);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -40,8 +50,8 @@ const LettersPage = () => {
             <Card key={index}>
               <CardImage src={cardImage} alt="Sealed Letter" />
               <CardContent>
-                <CardTitle>{letter.title}</CardTitle>
-                <CardDate>Do not open until: {letter.date}</CardDate>
+                <CardTitle>Open {letter.deliveryDate}</CardTitle>
+                <p>{letter.text}</p>
               </CardContent>
             </Card>
           ))}
@@ -54,5 +64,7 @@ const LettersPage = () => {
 };
 
 export default LettersPage;
+
+
 
 
