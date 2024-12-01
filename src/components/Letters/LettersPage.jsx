@@ -10,12 +10,14 @@ import {
   Button,
 } from "./LettersPage.styled";
 import Modal from "../Modal/Modal";
+import ReadLetterModal from "../ReadLetterModal/ReadLetterModal";
 import cardImage from "../../assets/letter_card.jpeg";
 import { isToday } from "../../utils/dateUtils";
 
 const LettersPage = () => {
   const [letters, setLetters] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedLetter, setSelectedLetter] = useState(null);
 
   useEffect(() => {
     const storedLetters = localStorage.getItem("letters");
@@ -41,6 +43,14 @@ const LettersPage = () => {
     setIsModalOpen(false);
   };
 
+  const handleOpenReadLetterModal = (letter) => {
+    setSelectedLetter(letter);
+  };
+
+  const handleCloseReadLetterModal = () => {
+    setSelectedLetter(null);
+  };
+
   return (
     <PageContainer>
       {letters.length === 0 ? (
@@ -52,9 +62,10 @@ const LettersPage = () => {
               <CardImage src={cardImage} alt="Sealed Letter" />
               <CardContent>
                 <CardTitle>Open on {letter.deliveryDate}</CardTitle>
-                <p>{letter.text}</p>
                 {isToday(letter.deliveryDate) && (
-                  <Button>Time to open this letter</Button>
+                  <Button onClick={() => handleOpenReadLetterModal(letter)}>
+                    Time to open this letter
+                  </Button>
                 )}
               </CardContent>
             </Card>
@@ -63,11 +74,18 @@ const LettersPage = () => {
       )}
       <Button onClick={handleOpenModal}>Create a Letter</Button>
       {isModalOpen && <Modal onClose={handleCloseModal} onSubmit={handleAddLetter} />}
+      {selectedLetter && (
+        <ReadLetterModal
+          onClose={handleCloseReadLetterModal}
+          letter={selectedLetter}
+        />
+      )}
     </PageContainer>
   );
 };
 
 export default LettersPage;
+
 
 
 
