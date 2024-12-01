@@ -1,13 +1,63 @@
 version: '3.9'
 
+volumes:
+  postgres-data:
+    driver: local
+  kestra-data:
+    driver: local
+
 services:
+  postgres:
+    image: postgres:latest
+    container_name: kestra_postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: kestra
+      POSTGRES_USER: kestra
+      POSTGRES_PASSWORD: k3str4
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+    restart: always
+
   kestra:
     image: kestra/kestra:latest
     container_name: kestra
+    user: "root"
+    command: server standalone
+    volumes:
+      - kestra-data:/app/storage
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp/kestra-wd:/tmp/kestra-wd
     environment:
-      KESTRA_DATABASE_URL: jdbc:postgresql://kestra_postgres/kestra
-      KESTRA_DATABASE_USERNAME: kestra
-      KESTRA_DATABASE_PASSWORD: kestra
+      KESTRA_CONFIGURATION: |
+        datasources:
+          postgres:
+            url: jdbc:postgresql://kestra_postgres:5432/kestra
+            driverClassName: org.postgresql.Driver
+            username: kestra
+            password: k3str4
+        kestra:
+          server:
+            basicAuth:
+              enabled: false
+              username: "admin@kestra.io"
+              password: kestra
+          repository:
+            type: postgres
+          storage:
+            type: local
+            local:
+              basePath: "/app/storage"
+          queue:
+            type: postgres
+          tasks:
+            tmpDir:
+              path: /tmp/kestra-wd/tmp
+          url: http://localhost:8080/
       MICRONAUT_SERVER_CORS_ENABLED: "true"
       MICRONAUT_SERVER_CORS_ALLOWEDORIGINS: "http://localhost:5173"
       MICRONAUT_SERVER_CORS_ALLOWEDMETHODS: "GET,POST,OPTIONS"
@@ -16,23 +66,9 @@ services:
       MICRONAUT_SERVER_CORS_MAXAGE: "3600"
     ports:
       - "8080:8080"
-    volumes:
-      - ./kestra-flows:/data/flows
+      - "8081:8081"
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     restart: always
 
-  postgres:
-    image: postgres:latest
-    container_name: kestra_postgres
-    environment:
-      POSTGRES_USER: kestra
-      POSTGRES_PASSWORD: kestra
-      POSTGRES_DB: kestra
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    restart: always
-
-volumes:
-  postgres_data:
-    driver: local

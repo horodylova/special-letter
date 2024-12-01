@@ -1,23 +1,22 @@
 import axios from "axios";
 
 const sendToKestra = async (formData) => {
-  const URL = '/api/app.emails/special-letter/abcdefg';
+  const URL = '/api/v1/executions/webhook/app.emails/special-letter/abcdefg';
 
   const requestData = {
     namespace: 'app.emails',
     flowId: 'special-letter',
     inputs: {
-      email: formData.email,
-      name: formData.name,
-      messenger: formData.messenger,
-    }
+      text: formData.text, 
+      open_at: formData.deliveryDate,  
+    },
   };
 
   try {
     const response = await axios.post(URL, requestData, {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
     console.log("Data sent to Kestra:", response.data);
     return response.data;
@@ -28,6 +27,7 @@ const sendToKestra = async (formData) => {
 };
 
 export default sendToKestra;
+
 
 
 
