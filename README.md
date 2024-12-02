@@ -78,11 +78,13 @@ Access the PostgreSQL database and create the required table:
 docker exec -it kestra_postgres psql -U kestra -d kestra
 ```
 
+```
 CREATE TABLE letters (
   id SERIAL PRIMARY KEY,
   message TEXT NOT NULL,
   open_at TIMESTAMP NOT NULL
 );
+```
 
 **Step 6: Configure Kestra Flow**
 
