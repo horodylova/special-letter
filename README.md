@@ -13,6 +13,7 @@ Where will you live?
 Travel through time with your letters. Write about your dreams, your concerns, and your hopes for yourself.
 
 How exciting will it be to open and read it years later?
+
 **A small tip:**
 
 Write a letter and set today’s date. 
@@ -77,11 +78,13 @@ Access the PostgreSQL database and create the required table:
 docker exec -it kestra_postgres psql -U kestra -d kestra
 ```
 
+```
 CREATE TABLE letters (
   id SERIAL PRIMARY KEY,
   message TEXT NOT NULL,
   open_at TIMESTAMP NOT NULL
 );
+```
 
 **Step 6: Configure Kestra Flow**
 
@@ -92,6 +95,7 @@ http://localhost:8080
 
 ## Create a new flow with the following details:
 
+```
  id: special-letter
 namespace: app.emails
 
@@ -115,6 +119,7 @@ triggers:
   - id: webhook
     type: io.kestra.plugin.core.trigger.Webhook
     key: abcdefg
+```
 
 **Step 7: Test and Play with the Project**
 
@@ -123,9 +128,13 @@ Verify that the letters are correctly stored in the letters table in the Postgre
 Use tools like curl or Postman to interact with the webhook endpoint:
  
 ```bash 
-curl -X POST http://localhost:8080/api/app.emails/special-letter/abcdefg \
-  -H "Content-Type: application/json" \
-  -d '{"text": "Hello, future!", "deliveryDate": "2025-01-01"}'
+curl -X POST http://localhost:8080/api/v1/executions/webhook/app.emails/special-letter/abcdefg \
+-H "Content-Type: application/json" \
+-d '{
+  "text": "This is a letter to my future self.",
+  "deliveryDate": "2033-11-30"
+}'
+
 ```
 
 ## Tech Stack
