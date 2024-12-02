@@ -15,7 +15,7 @@ const ReadLetterModal = ({ onClose, letter }) => {
     <Overlay>
       <ModalContainer>
         <CloseButton onClick={onClose}>×</CloseButton>
-        <Header>You wrote this letter on {letter.date}</Header>
+        <Header>Your Special Letter</Header>
         <ContentWrapper>
           <Image src={sampleImage} alt="Decorative" />
           <Text>{letter.text}</Text>
