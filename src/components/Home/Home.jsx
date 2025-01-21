@@ -14,7 +14,8 @@ const Home = () => {
           say to your future self.
         </Description>
         <Link to="/letters">
-          <Button>View Your Letters</Button>
+          <Button>Sign In</Button>
+          <Button>Sign Up</Button>
         </Link>
       </ContentWrapper>
     </HomeContainer>
