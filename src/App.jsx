@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./components/Home/Home";
 import CreateNewUser from "./components/CreateNewUser/CreateNewUser";
@@ -7,9 +7,11 @@ import LettersPage from "./components/Letters/LettersPage";
 import { Header, Nav, NavLink } from "./components/App/App.styled";
 import { GlobalStyle } from "./GlobalStyle";
 import { removeToken, getToken } from "./utils/setGetAndRemoveToken";
+import { AppContext } from "../src/contexts/AppContext";
+
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+   const { isAuthenticated, setIsAuthenticated } = useContext(AppContext);
 
   useEffect(() => {
     const token = getToken();
