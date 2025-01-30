@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-// import sendToKestra from "../../api/sendToKestra";
-import {
+ import {
   Overlay,
   ModalContainer,
   CloseButton,
@@ -9,7 +8,7 @@ import {
   Form,
   Label,
   TextArea,
-} from "./Modal.styled";
+} from "./CreateLetterModal.styled";
 
 const Modal = ({ onClose, onSubmit }) => {
   const [formData, setFormData] = useState({
@@ -30,7 +29,7 @@ const Modal = ({ onClose, onSubmit }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // await sendToKestra(formData);
+    
       onSubmit(formData);
       setStatusMessage("Your letter has been saved and sent!");
       setFormData({

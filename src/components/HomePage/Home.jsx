@@ -1,8 +1,13 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { HomeContainer, ContentWrapper, Header, Description, Button } from "./Home.styled";
+import { AppContext } from "../../contexts/AppContext";
 
 const Home = () => {
+  const navigate = useNavigate();
+  const { isAuthenticated, setIsAuthenticated } = useContext(AppContext);
+
   return (
     <HomeContainer>
       <ContentWrapper>
@@ -14,8 +19,9 @@ const Home = () => {
           say to your future self.
         </Description>
         <Link to="/letters">
-          <Button>Sign In</Button>
-          <Button>Sign Up</Button>
+        {!isAuthenticated && <Button navigate="/login">Sign In</Button> }
+        {!isAuthenticated && <Button navigate="/register">Sign Up</Button> }
+        {isAuthenticated &&  <Button>Letters</Button> }
         </Link>
       </ContentWrapper>
     </HomeContainer>
