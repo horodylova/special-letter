@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../../contexts/AppContext';
 import { logoutUser } from '../../../api/authService';
 import { getToken, removeToken } from '../../../utils/setGetAndRemoveToken';
+import { LogoutButton } from './Logout.styled';
 
 const Logout = () => {
   const navigate = useNavigate();
@@ -31,9 +32,9 @@ const Logout = () => {
   };
 
   return (
-    <button onClick={handleLogout}>
+    <LogoutButton onClick={handleLogout}>
       Logout
-    </button>
+    </LogoutButton>
   );
 };
 

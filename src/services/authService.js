@@ -25,7 +25,7 @@ export const registerUser = async (username, password) => {
 export const loginUser = async (username, password) => {
   try {
     const response = await fetch(`${API_URL}/api/auth/login`, {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },

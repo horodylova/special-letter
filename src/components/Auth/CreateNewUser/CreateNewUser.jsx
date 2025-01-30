@@ -3,10 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../../contexts/AppContext';
 import { registerUser } from '../../../services/authService';
 import { setToken } from '../../../utils/setGetAndRemoveToken';
+import {
+  RegisterContainer,
+  RegisterForm,
+  Title,
+  FormGroup,
+  Label,
+  Input,
+  SubmitButton,
+  ErrorMessage
+} from './CreateNewUser.styled';
 
 const CreateNewUser = () => {
   const navigate = useNavigate();
-  const { setIsAuthenticated, setUser, setError, setLoading, loading } = useContext(AppContext);
+  const { setIsAuthenticated, setUser, setError, loading, setLoading, error } = useContext(AppContext);
   
   const [formData, setFormData] = useState({
     username: '',
@@ -43,12 +53,13 @@ const CreateNewUser = () => {
   };
 
   return (
-    <div>
-      <h2>Create New Account</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Username:</label>
-          <input
+    <RegisterContainer>
+      <RegisterForm onSubmit={handleSubmit}>
+        <Title>Create New Account</Title>
+        
+        <FormGroup>
+          <Label htmlFor="username">Username</Label>
+          <Input
             type="text"
             id="username"
             name="username"
@@ -57,11 +68,11 @@ const CreateNewUser = () => {
             required
             minLength={3}
           />
-        </div>
+        </FormGroup>
 
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
+        <FormGroup>
+          <Label htmlFor="password">Password</Label>
+          <Input
             type="password"
             id="password"
             name="password"
@@ -70,16 +81,16 @@ const CreateNewUser = () => {
             required
             minLength={6}
           />
-        </div>
+        </FormGroup>
 
-        <button type="submit" disabled={loading}>
+        {error && <ErrorMessage>{error}</ErrorMessage>}
+
+        <SubmitButton type="submit" disabled={loading}>
           {loading ? 'Creating Account...' : 'Create Account'}
-        </button>
-      </form>
-    </div>
+        </SubmitButton>
+      </RegisterForm>
+    </RegisterContainer>
   );
 };
 
 export default CreateNewUser;
- 
-  

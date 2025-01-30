@@ -3,10 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../../contexts/AppContext';
 import { loginUser } from '../../../services/authService';
 import { setToken } from '../../../utils/setGetAndRemoveToken';
+import {
+  LoginContainer,
+  LoginForm,
+  Title,
+  FormGroup,
+  Label,
+  Input,
+  SubmitButton,
+  ErrorMessage
+} from './Login.styled';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setIsAuthenticated, setUser, setError, setLoading, loading } = useContext(AppContext);
+  const { setIsAuthenticated, setUser, setError, loading, setLoading, error } = useContext(AppContext);
   
   const [formData, setFormData] = useState({
     username: '',
@@ -43,12 +53,13 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Username:</label>
-          <input
+    <LoginContainer>
+      <LoginForm onSubmit={handleSubmit}>
+        <Title>Login</Title>
+        
+        <FormGroup>
+          <Label htmlFor="username">Username</Label>
+          <Input
             type="text"
             id="username"
             name="username"
@@ -56,11 +67,11 @@ const Login = () => {
             onChange={handleChange}
             required
           />
-        </div>
+        </FormGroup>
 
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
+        <FormGroup>
+          <Label htmlFor="password">Password</Label>
+          <Input
             type="password"
             id="password"
             name="password"
@@ -68,13 +79,15 @@ const Login = () => {
             onChange={handleChange}
             required
           />
-        </div>
+        </FormGroup>
 
-        <button type="submit" disabled={loading}>
+        {error && <ErrorMessage>{error}</ErrorMessage>}
+
+        <SubmitButton type="submit" disabled={loading}>
           {loading ? 'Logging in...' : 'Login'}
-        </button>
-      </form>
-    </div>
+        </SubmitButton>
+      </LoginForm>
+    </LoginContainer>
   );
 };
 
