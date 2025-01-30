@@ -1,11 +1,11 @@
 import React, { useEffect, useContext } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./components/HomePage/Home";
-import CreateNewUser from "./components/Auth/CreateNewUser/CreateNewUser";
+import CreateNewUser from "./components/Auth/Register/Register";
 import Login from "./components/Auth/Login/Login";
 import LettersPage from "./components/LettersPage/LettersPage";
-import { Header, Nav, NavLink } from "./components/App/App.styled";
-import { GlobalStyle } from "./GlobalStyle";
+import { Header, Nav, NavLink } from "./components/Styles/App.styled";
+import { GlobalStyle } from "./components/Styles/GlobalStyle";
 import { removeToken, getToken } from "./utils/setGetAndRemoveToken";
 import { AppContext } from "../src/contexts/AppContext";
 

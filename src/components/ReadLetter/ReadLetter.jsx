@@ -7,7 +7,7 @@ import {
   Image,
   ContentWrapper,
   Text,
-} from "./ReadLetterModal.styled";
+} from "./ReadLetter.styled";
 import sampleImage from "../../assets/article_image.jpg";
 
 const ReadLetterModal = ({ onClose, letter }) => {

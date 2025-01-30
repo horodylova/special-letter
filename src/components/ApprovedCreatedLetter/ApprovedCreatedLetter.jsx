@@ -4,7 +4,7 @@ import {
   ModalContainer,
   CloseButton,
   Message,
-} from "./SecondModal.styled";
+} from "./ApprovedCreatedLetter.styled";
 
 const SecondModal = ({ onClose }) => {
   return (

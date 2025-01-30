@@ -9,8 +9,8 @@ import {
   EmptyMessage,
   Button,
 } from "./LettersPage.styled";
-import Modal from "../CreateLetterModal/CreateLetterModal";
-import ReadLetterModal from "../ReadLetterModal/ReadLetterModal";
+import Modal from "../CreateLetter/CreateLetter";
+import ReadLetterModal from "../ReadLetter/ReadLetter";
 import cardImage from "../../assets/letter_card.jpeg";
 import { isToday } from "../../utils/dateUtils";
 

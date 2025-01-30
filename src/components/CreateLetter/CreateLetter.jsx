@@ -8,7 +8,7 @@ import React, { useState } from "react";
   Form,
   Label,
   TextArea,
-} from "./CreateLetterModal.styled";
+} from "./CreateLetter.styled";
 
 const Modal = ({ onClose, onSubmit }) => {
   const [formData, setFormData] = useState({
