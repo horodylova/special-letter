@@ -30,7 +30,7 @@ function App() {
         <Header>
           <Nav>
             <NavLink to="/">Home</NavLink>
-            <NavLink to="/letters">Letters</NavLink>
+            {isAuthenticated && <NavLink to="/letters">Letters</NavLink> }
             {!isAuthenticated &&  <NavLink to="/login">Sign In</NavLink> }
             {!isAuthenticated && <NavLink to="/register">Register</NavLink>}
             {isAuthenticated && <NavLink onClick={handleLogout} to="/">Logout</NavLink>}

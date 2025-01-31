@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import {
   PageContainer,
   CardContainer,
@@ -12,23 +12,52 @@ import {
 import Modal from "../CreateLetter/CreateLetter";
 import ReadLetterModal from "../ReadLetter/ReadLetter";
 import cardImage from "../../assets/letter_card.jpeg";
-import { isToday } from "../../utils/dateUtils";
+import { isFutureDate, formatLetterDate} from "../../utils/dateUtils";
+import { AppContext } from "../../contexts/AppContext";
+import {
+  getLetters,
+  createLetter,
+  getLetterById,
+} from "../../services/lettersService";
 
 const LettersPage = () => {
-  const [letters, setLetters] = useState([]);
+  const {
+    user,
+    loading,
+    setLoading,
+    error,
+    setError,
+    lettersList,
+    setLettersList,
+  } = useContext(AppContext);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedLetter, setSelectedLetter] = useState(null);
 
-  useEffect(() => {
-    const storedLetters = localStorage.getItem("letters");
-    if (storedLetters) {
-      setLetters(JSON.parse(storedLetters));
+  const loadLetters = async () => {
+    try {
+      setLoading(true);
+      const response = await getLetters();
+
+      const lettersWithDeliveryDate = response.map((letter) => ({
+        ...letter,
+        deliveryDate: letter.created_at,
+      }));
+
+      setLettersList(lettersWithDeliveryDate || []);
+      setError(null);
+    } catch (err) {
+      setError("Failed to load letters. Please try again later.");
+      console.error("Error fetching letters:", err);
+      setLettersList([]);
+    } finally {
+      setLoading(false);
     }
-  }, []);
+  };
 
   useEffect(() => {
-    localStorage.setItem("letters", JSON.stringify(letters));
-  }, [letters]);
+    loadLetters();
+  }, []);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -38,31 +67,52 @@ const LettersPage = () => {
     setIsModalOpen(false);
   };
 
-  const handleAddLetter = (newLetter) => {
-    setLetters((prevLetters) => [...prevLetters, newLetter]);
-    setIsModalOpen(false);
+  const handleAddLetter = async (newLetter) => {
+    try {
+      await createLetter({
+        ...newLetter,
+        user_id: user.id,
+      });
+      loadLetters();
+      setIsModalOpen(false);
+    } catch (err) {
+      console.error("Error creating letter:", err);
+    }
   };
 
-  const handleOpenReadLetterModal = (letter) => {
-    setSelectedLetter(letter);
+  const handleOpenReadLetterModal = async (letter) => {
+    try {
+      const fullLetter = await getLetterById(letter.id);
+      setSelectedLetter(fullLetter);
+    } catch (err) {
+      console.error("Error fetching letter details:", err);
+    }
   };
 
   const handleCloseReadLetterModal = () => {
     setSelectedLetter(null);
   };
 
+  if (loading) {
+    return <div className="text-center p-4">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center text-red-500 p-4">{error}</div>;
+  }
+
   return (
     <PageContainer>
-      {letters.length === 0 ? (
+      {!lettersList || lettersList.length === 0 ? (
         <EmptyMessage>Write your first letter to the future.</EmptyMessage>
       ) : (
         <CardContainer>
-          {letters.map((letter, index) => (
-            <Card key={index}>
+          {lettersList.map((letter) => (
+            <Card key={letter.id}>
               <CardImage src={cardImage} alt="Sealed Letter" />
               <CardContent>
-                <CardTitle>Open on {letter.deliveryDate}</CardTitle>
-                {isToday(letter.deliveryDate) && (
+                <CardTitle>{formatLetterDate(letter.created_at)}</CardTitle>
+                {!isFutureDate(letter.created_at) && (
                   <Button onClick={() => handleOpenReadLetterModal(letter)}>
                     Time to open this letter
                   </Button>
@@ -73,7 +123,9 @@ const LettersPage = () => {
         </CardContainer>
       )}
       <Button onClick={handleOpenModal}>Create a Letter</Button>
-      {isModalOpen && <Modal onClose={handleCloseModal} onSubmit={handleAddLetter} />}
+      {isModalOpen && (
+        <Modal onClose={handleCloseModal} onSubmit={handleAddLetter} />
+      )}
       {selectedLetter && (
         <ReadLetterModal
           onClose={handleCloseReadLetterModal}
@@ -85,9 +137,3 @@ const LettersPage = () => {
 };
 
 export default LettersPage;
-
-
-
-
-
-

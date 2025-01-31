@@ -18,7 +18,7 @@ const ReadLetterModal = ({ onClose, letter }) => {
         <Header>Your Special Letter</Header>
         <ContentWrapper>
           <Image src={sampleImage} alt="Decorative" />
-          <Text>{letter.text}</Text>
+          <Text>{letter.rows[0].letter_text}</Text>
         </ContentWrapper>
       </ModalContainer>
     </Overlay>
