@@ -1,13 +1,13 @@
 import React, { useState } from "react";
- import {
-  Overlay,
-  ModalContainer,
-  CloseButton,
-  Input,
-  SubmitButton,
-  Form,
-  Label,
-  TextArea,
+import {   
+  Overlay,   
+  ModalContainer,   
+  CloseButton,   
+  Input,   
+  SubmitButton,   
+  Form,   
+  Label,   
+  TextArea, 
 } from "./CreateLetter.styled";
 
 const Modal = ({ onClose, onSubmit }) => {
@@ -29,15 +29,16 @@ const Modal = ({ onClose, onSubmit }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-    
-      onSubmit(formData);
+      await onSubmit(formData);
       setStatusMessage("Your letter has been saved and sent!");
       setFormData({
         text: "",
         deliveryDate: "",
       });
+      onClose();  
     } catch (error) {
       setStatusMessage("Failed to send your letter. Please try again.");
+      console.error(error);
     }
   };
 
@@ -64,10 +65,11 @@ const Modal = ({ onClose, onSubmit }) => {
               name="deliveryDate"
               value={formData.deliveryDate}
               onChange={handleChange}
+              min={new Date().toISOString().split('T')[0]} 
               required
             />
           </Label>
-          <SubmitButton type="submit"></SubmitButton>
+          <SubmitButton type="submit">Send Letter</SubmitButton>
         </Form>
         {statusMessage && <p>{statusMessage}</p>}
       </ModalContainer>

@@ -12,14 +12,13 @@ import {
 import Modal from "../CreateLetter/CreateLetter";
 import ReadLetterModal from "../ReadLetter/ReadLetter";
 import cardImage from "../../assets/letter_card.jpeg";
-import { isFutureDate, formatLetterDate} from "../../utils/dateUtils";
+import { isFutureDate, formatLetterDate } from "../../utils/dateUtils";
 import { AppContext } from "../../contexts/AppContext";
 import {
   getLetters,
   createLetter,
   getLetterById,
 } from "../../services/lettersService";
-
 const LettersPage = () => {
   const {
     user,
@@ -107,25 +106,41 @@ const LettersPage = () => {
         <EmptyMessage>Write your first letter to the future.</EmptyMessage>
       ) : (
         <CardContainer>
-          {lettersList.map((letter) => (
-            <Card key={letter.id}>
-              <CardImage src={cardImage} alt="Sealed Letter" />
-              <CardContent>
-                <CardTitle>{formatLetterDate(letter.created_at)}</CardTitle>
-                {!isFutureDate(letter.created_at) && (
-                  <Button onClick={() => handleOpenReadLetterModal(letter)}>
-                    Time to open this letter
-                  </Button>
-                )}
-              </CardContent>
-            </Card>
-          ))}
+          {lettersList.map((letter) => {
+            const openDate = new Date(letter.opened_at);
+            const today = new Date();
+
+            return (
+              <Card key={letter.id}>
+                <CardImage src={cardImage} alt="Sealed Letter" />
+                <CardContent>
+                  {openDate > today ? (
+                    <CardTitle>
+                      {`The letter can be opened on ${openDate.toLocaleDateString()}`}
+                    </CardTitle>
+                  ) : (
+                    <>
+                      <CardTitle>
+                        {formatLetterDate(letter.opened_at)}
+                      </CardTitle>
+                      <Button onClick={() => handleOpenReadLetterModal(letter)}>
+                        Time to open the letter
+                      </Button>
+                    </>
+                  )}
+                </CardContent>
+              </Card>
+            );
+          })}
         </CardContainer>
       )}
+
       <Button onClick={handleOpenModal}>Create a Letter</Button>
+
       {isModalOpen && (
         <Modal onClose={handleCloseModal} onSubmit={handleAddLetter} />
       )}
+
       {selectedLetter && (
         <ReadLetterModal
           onClose={handleCloseReadLetterModal}
