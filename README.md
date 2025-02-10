@@ -36,7 +36,6 @@ To work on this project, you will need:
 
  
 
-
 ## Installation
 
 **Step 1: Clone the Repository**
