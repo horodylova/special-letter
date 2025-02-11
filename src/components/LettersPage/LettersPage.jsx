@@ -1,13 +1,16 @@
 import React, { useEffect, useContext, useState } from "react";
 import {
   PageContainer,
-  CardContainer,
   Card,
   CardImage,
   CardContent,
   CardTitle,
   EmptyMessage,
   Button,
+  ScrollableContainer,
+  YearFolder,
+  YearTitle,
+  UpdatedCardContainer
 } from "./LettersPage.styled";
 import Modal from "../CreateLetter/CreateLetter";
 import ReadLetterModal from "../ReadLetter/ReadLetter";
@@ -18,6 +21,7 @@ import {
   createLetter,
   getLetterById,
 } from "../../services/lettersService";
+import { organizeLettersByYear } from "../../utils/organizeLettersByYear";
 
 const LettersPage = () => {
   const {
@@ -108,39 +112,60 @@ const LettersPage = () => {
     return <div className="text-center text-red-500 p-4">{error}</div>;
   }
 
+  const renderLetters = () => {
+    if (!lettersList || lettersList.length === 0) {
+      return <EmptyMessage>Write your first letter to the future.</EmptyMessage>;
+    }
+
+    const organizedLetters = organizeLettersByYear(lettersList);
+
+    return (
+      <ScrollableContainer>
+        {organizedLetters.map(({ year, letters }) => (
+          <YearFolder key={year}>
+            <YearTitle>{year}</YearTitle>
+            <UpdatedCardContainer>
+              {letters.map((letter) => {
+                const openDate = new Date(letter.opened_at);
+                const today = new Date();
+
+                return (
+                  <Card key={letter.id}>
+                    <CardImage src={cardImage} alt="Sealed Letter" />
+                    <CardContent>
+                      {openDate > today ? (
+                        <CardTitle>
+                          {`The letter can be opened on ${formatDate(letter.opened_at)}`}
+                        </CardTitle>
+                      ) : (
+                        <>
+                          <CardTitle>
+                            {`Letter created ${formatDate(letter.created_at)}`}
+                          </CardTitle>
+                          <Button onClick={() => handleOpenReadLetterModal(letter)}>
+                            Time to open the letter
+                          </Button>
+                        </>
+                      )}
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </UpdatedCardContainer>
+          </YearFolder>
+        ))}
+      </ScrollableContainer>
+    );
+  };
+
   return (
     <PageContainer>
-      {!lettersList || lettersList.length === 0 ? (
-        <EmptyMessage>Write your first letter to the future.</EmptyMessage>
+      {loading ? (
+        <div className="text-center p-4">Loading...</div>
+      ) : error ? (
+        <div className="text-center text-red-500 p-4">{error}</div>
       ) : (
-        <CardContainer>
-          {lettersList.map((letter) => {
-            const openDate = new Date(letter.opened_at);
-            const today = new Date();
-
-            return (
-              <Card key={letter.id}>
-                <CardImage src={cardImage} alt="Sealed Letter" />
-                <CardContent>
-                  {openDate > today ? (
-                    <CardTitle>
-                      {`The letter can be opened on ${formatDate(letter.opened_at)}`}
-                    </CardTitle>
-                  ) : (
-                    <>
-                      <CardTitle>
-                        {`Letter created ${formatDate(letter.created_at)}`}
-                      </CardTitle>
-                      <Button onClick={() => handleOpenReadLetterModal(letter)}>
-                        Time to open the letter
-                      </Button>
-                    </>
-                  )}
-                </CardContent>
-              </Card>
-            );
-          })}
-        </CardContainer>
+        renderLetters()
       )}
 
       <Button onClick={handleOpenModal}>Create a Letter</Button>

@@ -69,7 +69,7 @@ const Modal = ({ onClose, onSubmit }) => {
               required
             />
           </Label>
-          <SubmitButton type="submit">Send Letter</SubmitButton>
+          <SubmitButton type="submit"></SubmitButton>
         </Form>
         {statusMessage && <p>{statusMessage}</p>}
       </ModalContainer>

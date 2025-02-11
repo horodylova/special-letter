@@ -1,23 +1,74 @@
 import styled from "styled-components";
  
 export const PageContainer = styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-text-align: center;
-height: 100vh; 
-background-color: #f9f6f1;
-background-size: cover;
-overflow: hidden;
+width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+
+  @media (min-width: 1024px) {
+    padding: 40px;
+  }
 `;
 
-export const CardContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+export const ScrollableContainer = styled.div`
+max-height: 70vh;
+overflow-y: auto;
+padding: 20px;
+
+&::-webkit-scrollbar {
+  width: 8px;
+}
+
+&::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+&::-webkit-scrollbar-thumb {
+  background: #e76f51;
+  border-radius: 4px;
+}
+
+@media (min-width: 1024px) {
+  max-height: 80vh;
+  padding: 30px;
+}
+`;
+
+export const YearFolder = styled.div`
+margin-bottom: 30px;
+
+@media (min-width: 1024px) {
+  margin-bottom: 50px;
+}
+`;
+
+export const YearTitle = styled.h2`
+color: #2a9d8f;
+margin-bottom: 20px;
+padding-bottom: 10px;
+border-bottom: 2px solid #e76f51;
+font-size: 1.5rem;
+
+@media (min-width: 1024px) {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+`;
+
+export const UpdatedCardContainer = styled.div`
   gap: 20px;
-  justify-content: center;
-  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+
+  @media (min-width: 1440px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
 `;
 
 export const Card = styled.div`
