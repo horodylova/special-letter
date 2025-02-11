@@ -12,13 +12,13 @@ export const registerUser = async (username, password) => {
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || 'Registration failed');
+      return { error: errorData.message || 'Registration failed' };
     }
 
     const data = await response.json();
     return data;
   } catch (error) {
-    throw error;
+    return { error: 'Registration failed' };
   }
 };
 
@@ -34,13 +34,13 @@ export const loginUser = async (username, password) => {
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || 'Login failed');
+      return { error: errorData.message || 'Login failed' };
     }
 
     const data = await response.json();
     return data;
   } catch (error) {
-    throw error;
+    return { error: 'Login failed' };
   }
 };
 
@@ -56,11 +56,11 @@ export const logoutUser = async (token) => {
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || 'Logout failed');
+      return { error: errorData.message || 'Logout failed' };
     }
 
     return await response.json();
   } catch (error) {
-    throw error;
+    return { error: 'Logout failed' };
   }
 };

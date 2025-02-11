@@ -37,16 +37,24 @@ const Login = () => {
     setError(null);
 
     try {
-      const { user, token } = await loginUser(formData.username, formData.password);
+      const response = await loginUser(formData.username, formData.password);
       
-      setToken(token);
-      setUser(user);
-      setIsAuthenticated(true);
-      
-      setFormData({ username: '', password: '' });
-      navigate('/');
+      if (response.error) {
+        setError(response.error);
+        return;
+      }
+
+      if (response.user && response.token) {
+        setToken(response.token);
+        setUser(response.user);
+        setIsAuthenticated(true);
+        setFormData({ username: '', password: '' });
+        navigate('/');
+      } else {
+        setError('Invalid response from server');
+      }
     } catch (error) {
-      setError(error.message);
+      setError('Login failed. Please try again or register if you don\'t have an account.');
     } finally {
       setLoading(false);
     }
