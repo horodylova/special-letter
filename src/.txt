@@ -1,0 +1,17 @@
+на письмах из прошлого стоит неправильная дата 
+когда много писем, невозможно скролить - нужно организовать пространство 
+добавить кнопку удаления письма 
+между хоум и письмами страницы не сохраняется состояние - каждый раз новый запрос 
+на кнопке создания письма есть текст, который нужно убрать 
+в консоли видет текст письма - все письма видны в консоли 
+
+в консоли виден запрос на апи import.meta.env = {
+    "BASE_URL": "/",
+    "DEV": true,
+    "MODE": "development",
+    "PROD": false,
+    "SSR": false,
+    "VITE_API_URL": "https://special-leter-backend.onrender.com"
+};
+export const API_URL = import.meta.env.VITE_API_URL;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwaS5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQubWV0YS5lbnYgPSB7XCJCQVNFX1VSTFwiOiBcIi9cIiwgXCJERVZcIjogdHJ1ZSwgXCJNT0RFXCI6IFwiZGV2ZWxvcG1lbnRcIiwgXCJQUk9EXCI6IGZhbHNlLCBcIlNTUlwiOiBmYWxzZSwgXCJWSVRFX0FQSV9VUkxcIjogXCJodHRwczovL3NwZWNpYWwtbGV0ZXItYmFja2VuZC5vbnJlbmRlci5jb21cIn07ZXhwb3J0IGNvbnN0IEFQSV9VUkwgPSBpbXBvcnQubWV0YS5lbnYuVklURV9BUElfVVJMOyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxNQUFNLENBQUMsSUFBSSxDQUFDLEdBQUcsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLFFBQVEsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQyxJQUFJLENBQUMsQ0FBQyxDQUFDLElBQUksQ0FBQyxDQUFDLENBQUMsQ0FBQyxXQUFXLENBQUMsQ0FBQyxDQUFDLENBQUMsSUFBSSxDQUFDLENBQUMsQ0FBQyxLQUFLLENBQUMsQ0FBQyxDQUFDLEdBQUcsQ0FBQyxDQUFDLENBQUMsS0FBSyxDQUFDLENBQUMsQ0FBQyxZQUFZLENBQUMsQ0FBQyxDQUFDLENBQUMsS0FBSyxDQUFDLENBQUMsQ0FBQyxPQUFPLENBQUMsS0FBSyxDQUFDLE9BQU8sQ0FBQyxRQUFRLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQyxNQUFNLENBQUMsS0FBSyxDQUFDLE9BQU8sQ0FBQyxDQUFDLENBQUMsTUFBTSxDQUFDLElBQUksQ0FBQyxHQUFHLENBQUMsWUFBWSJ9

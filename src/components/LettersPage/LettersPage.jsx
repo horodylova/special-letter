@@ -12,13 +12,13 @@ import {
 import Modal from "../CreateLetter/CreateLetter";
 import ReadLetterModal from "../ReadLetter/ReadLetter";
 import cardImage from "../../assets/letter_card.jpeg";
-import { isFutureDate, formatLetterDate } from "../../utils/dateUtils";
 import { AppContext } from "../../contexts/AppContext";
 import {
   getLetters,
   createLetter,
   getLetterById,
 } from "../../services/lettersService";
+
 const LettersPage = () => {
   const {
     user,
@@ -92,6 +92,14 @@ const LettersPage = () => {
     setSelectedLetter(null);
   };
 
+  const formatDate = (date) => {
+    return new Date(date).toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    });
+  };
+
   if (loading) {
     return <div className="text-center p-4">Loading...</div>;
   }
@@ -116,12 +124,12 @@ const LettersPage = () => {
                 <CardContent>
                   {openDate > today ? (
                     <CardTitle>
-                      {`The letter can be opened on ${openDate.toLocaleDateString()}`}
+                      {`The letter can be opened on ${formatDate(letter.opened_at)}`}
                     </CardTitle>
                   ) : (
                     <>
                       <CardTitle>
-                        {formatLetterDate(letter.opened_at)}
+                        {`Letter created ${formatDate(letter.created_at)}`}
                       </CardTitle>
                       <Button onClick={() => handleOpenReadLetterModal(letter)}>
                         Time to open the letter
@@ -145,6 +153,7 @@ const LettersPage = () => {
         <ReadLetterModal
           onClose={handleCloseReadLetterModal}
           letter={selectedLetter}
+          onLetterDelete={loadLetters}
         />
       )}
     </PageContainer>

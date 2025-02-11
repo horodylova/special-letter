@@ -59,3 +59,21 @@ export const Text = styled.p`
   }
 `;
 
+export const DeleteButton = styled.button`
+  display: block;
+  margin: 20px auto;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background-color: #e76f51;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #d35400;
+  }
+`;
+
