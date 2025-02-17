@@ -2,19 +2,23 @@ import styled from "styled-components";
  
 export const PageContainer = styled.div`
 width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+max-width: 1200px;
+margin: 0 auto;
+padding: 20px;
+display: flex;
+flex-direction: column;
+min-height: calc(100vh - 80px); 
 
-  @media (min-width: 1024px) {
-    padding: 40px;
-  }
+@media (min-width: 1024px) {
+  padding: 40px;
+}
 `;
 
 export const ScrollableContainer = styled.div`
-max-height: 70vh;
+height: 100%;
 overflow-y: auto;
 padding: 20px;
+padding-bottom: 100px;  
 
 &::-webkit-scrollbar {
   width: 8px;
@@ -31,13 +35,20 @@ padding: 20px;
 }
 
 @media (min-width: 1024px) {
-  max-height: 80vh;
   padding: 30px;
+  padding-bottom: 120px;
 }
+`;
+
+export const ContentWrapper = styled.div`
+position: relative;
+height: calc(100vh - 200px);
 `;
 
 export const YearFolder = styled.div`
 margin-bottom: 30px;
+position: relative;
+z-index: 1;  
 
 @media (min-width: 1024px) {
   margin-bottom: 50px;
@@ -57,31 +68,36 @@ font-size: 1.5rem;
 }
 `;
 
-export const UpdatedCardContainer = styled.div`
-  gap: 20px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  @media (min-width: 1024px) {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-  }
+export const CardContainer = styled.div`
+gap: 20px;
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+position: relative;
+z-index: 1;
 
-  @media (min-width: 1440px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
+@media (min-width: 1024px) {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+@media (min-width: 1440px) {
+  grid-template-columns: repeat(4, 1fr);
+}
 `;
 
 export const Card = styled.div`
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-  width: 300px;
-  overflow: hidden;
-  transition: transform 0.2s;
+background: #fff;
+border-radius: 10px;
+box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+width: 300px;
+overflow: hidden;
+transition: transform 0.2s;
+position: relative;
+z-index: 1;
 
-  &:hover {
-    transform: scale(1.05);
-  }
+&:hover {
+  transform: scale(1.05);
+}
 `;
 
 export const CardImage = styled.img`
@@ -130,3 +146,23 @@ export const Button = styled.button`
   }
 `;
 
+export const ButtonContainer = styled.div`
+position: fixed;
+bottom: 0;
+left: 50%;
+transform: translateX(-50%);
+width: 100%;
+max-width: 1200px;
+padding: 20px;
+background: linear-gradient(to top, white 60%, transparent);
+z-index: 100;  
+pointer-events: none; 
+
+ button {
+  pointer-events: auto;
+}
+
+@media (min-width: 1024px) {
+  padding: 40px;
+}
+`;
