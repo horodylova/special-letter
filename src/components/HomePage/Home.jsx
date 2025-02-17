@@ -1,12 +1,10 @@
 import React, {useContext} from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
-import { HomeContainer, ContentWrapper, Header, Description, Button } from "./Home.styled";
+ import { HomeContainer, ContentWrapper, Header, Description, Button } from "./Home.styled";
 import { AppContext } from "../../contexts/AppContext";
 
 const Home = () => {
-  const navigate = useNavigate();
-  const { isAuthenticated, setIsAuthenticated } = useContext(AppContext);
+   const { isAuthenticated } = useContext(AppContext);
 
   return (
     <HomeContainer>
