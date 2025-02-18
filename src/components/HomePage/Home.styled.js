@@ -51,6 +51,14 @@ export const Button = styled.button`
   }
 `;
 
+export const ButtonsContainer = styled.div`
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+`;
+
+
 export const StyledLink = styled(Link)`
   text-decoration: none;
 `;

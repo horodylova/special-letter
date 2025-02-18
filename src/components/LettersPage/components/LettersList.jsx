@@ -8,7 +8,7 @@ import { organizeLettersByYear } from '../../../utils/organizeLettersByYear';
 
 const LettersList = ({ letters, onOpenLetter, formatDate }) => {
   if (!letters || letters.length === 0) {
-    return <EmptyMessage>Write your first letter to the future.</EmptyMessage>;
+    return <EmptyMessage>Write your first letter to the future</EmptyMessage>;
   }
 
   const organizedLetters = organizeLettersByYear(letters);

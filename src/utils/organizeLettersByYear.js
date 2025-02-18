@@ -1,30 +1,30 @@
 export const organizeLettersByYear = (letters) => {
-   const grouped = letters.reduce((acc, letter) => {
-    const creationDate = new Date(letter.created_at);
-     const year = creationDate.getFullYear();
-    if (year === 1970) {
-       const currentYear = new Date().getFullYear();
-      if (!acc[currentYear]) {
-        acc[currentYear] = [];
-      }
-      acc[currentYear].push({
-        ...letter,
-        created_at: new Date().toISOString()  
-      });
-    } else {
-      if (!acc[year]) {
-        acc[year] = [];
-      }
-      acc[year].push(letter);
-    }
-    return acc;
-  }, {});
+  if (!letters || !Array.isArray(letters) || letters.length === 0) {
+    return [];
+  }
 
- 
-  return Object.entries(grouped)
-    .sort(([yearA], [yearB]) => yearA - yearB)  
-    .map(([year, letters]) => ({
-      year,
-       letters: letters.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+  // Создаем Map для группировки писем по году открытия
+  const lettersByYear = new Map();
+
+  letters.forEach(letter => {
+    const openDate = new Date(letter.opened_at);
+    const year = openDate.getFullYear();
+    
+    if (!lettersByYear.has(year)) {
+      lettersByYear.set(year, []);
+    }
+    lettersByYear.get(year).push(letter);
+  });
+
+  // Преобразуем Map в массив и сортируем года
+  const sortedYears = Array.from(lettersByYear.entries())
+    .sort(([yearA], [yearB]) => yearA - yearB)
+    .map(([year, yearLetters]) => ({
+      year: String(year),
+      letters: yearLetters.sort((a, b) => 
+        new Date(a.opened_at) - new Date(b.opened_at)
+      )
     }));
+
+  return sortedYears;
 };

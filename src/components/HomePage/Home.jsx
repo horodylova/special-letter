@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import { Link } from "react-router-dom";
- import { HomeContainer, ContentWrapper, Header, Description, Button } from "./Home.styled";
+ import { HomeContainer, ContentWrapper, Header, Description, Button , ButtonsContainer} from "./Home.styled";
 import { AppContext } from "../../contexts/AppContext";
 
 const Home = () => {
@@ -16,6 +16,7 @@ const Home = () => {
           people around you? Write down your advice, your wishes, and everything else you want to
           say to your future self.
         </Description>
+        <ButtonsContainer>
         <Link to="/letters">
         {isAuthenticated &&  <Button>Letters</Button> }
         </Link>
@@ -25,6 +26,7 @@ const Home = () => {
         <Link to="/login">
         {!isAuthenticated && <Button>Sign In</Button> }
         </Link>
+        </ButtonsContainer>
       </ContentWrapper>
     </HomeContainer>
   );
