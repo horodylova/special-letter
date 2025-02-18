@@ -1,18 +1,21 @@
 import styled from "styled-components";
  
+ 
 export const PageContainer = styled.div`
-width: 100%;
-max-width: 1200px;
-margin: 0 auto;
-padding: 20px;
-display: flex;
-flex-direction: column;
-min-height: calc(100vh - 80px);
-position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 80px);
+  position: relative;
+  padding-bottom: 100px;  
 
-@media (min-width: 1024px) {
-  padding: 40px;
-}
+  @media (min-width: 1024px) {
+    padding: 40px;
+    padding-bottom: 120px;
+  }
 `;
 
 export const ScrollableContainer = styled.div`
@@ -47,6 +50,7 @@ export const ContentWrapper = styled.div`
 position: relative;
   height: calc(100vh - 200px);
   z-index: 1;
+  padding-bottom: 20px; 
 `;
 
 export const YearFolder = styled.div`
@@ -133,40 +137,58 @@ export const EmptyMessage = styled.p`
 `;
 
 export const Button = styled.button`
-  display: block;
-  margin: 20px auto;
-  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 32px;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 600;
   color: white;
   background-color: #e76f51;
   border: none;
-  border-radius: 8px;
+  border-radius: 50px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
+  pointer-events: auto;
+  box-shadow: 0 4px 15px rgba(231, 111, 81, 0.3);
 
   &:hover {
-    background-color: #d35400;
+    background-color: #e85d3d;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(231, 111, 81, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(231, 111, 81, 0.3);
+  }
+
+  &::before {
+    content: '+';
+    font-size: 1.5rem;
+    margin-right: 8px;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  @media (max-width: 768px) {
+    padding: 14px 28px;
+    font-size: 0.9rem;
   }
 `;
 
 export const ButtonContainer = styled.div`
-position: fixed;
-bottom: 0;
-left: 50%;
-transform: translateX(-50%);
-width: 100%;
-max-width: 1200px;
-padding: 20px;
-background: linear-gradient(to top, white 60%, transparent);
-z-index: 10;  
-pointer-events: none; 
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 10;
+  padding: 0;
+  pointer-events: none;
 
- button {
-  pointer-events: auto;
-}
-
-@media (min-width: 1024px) {
-  padding: 40px;
-}
+  @media (max-width: 768px) {
+    bottom: 20px;
+    right: unset;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 `;

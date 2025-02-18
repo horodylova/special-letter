@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import backgroundImage from "../../assets/background_picture.jpeg";
-
+ 
 export const HomeContainer = styled.div`
 display: flex;
 flex-direction: column;
@@ -9,7 +8,6 @@ align-items: center;
 justify-content: center;
 text-align: center;
 height: 100vh;  
-background: url(${backgroundImage}) no-repeat center center;
 background-size: cover;
 overflow: hidden;
 `;
