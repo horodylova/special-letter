@@ -7,7 +7,8 @@ margin: 0 auto;
 padding: 20px;
 display: flex;
 flex-direction: column;
-min-height: calc(100vh - 80px); 
+min-height: calc(100vh - 80px);
+position: relative;
 
 @media (min-width: 1024px) {
   padding: 40px;
@@ -16,33 +17,36 @@ min-height: calc(100vh - 80px);
 
 export const ScrollableContainer = styled.div`
 height: 100%;
-overflow-y: auto;
-padding: 20px;
-padding-bottom: 100px;  
+  overflow-y: auto;
+  padding: 20px;
+  padding-bottom: 100px;
+  position: relative;
+  z-index: 1;
 
-&::-webkit-scrollbar {
-  width: 8px;
-}
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
 
-&::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
-}
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
 
-&::-webkit-scrollbar-thumb {
-  background: #e76f51;
-  border-radius: 4px;
-}
+  &::-webkit-scrollbar-thumb {
+    background: #e76f51;
+    border-radius: 4px;
+  }
 
-@media (min-width: 1024px) {
-  padding: 30px;
-  padding-bottom: 120px;
-}
+  @media (min-width: 1024px) {
+    padding: 30px;
+    padding-bottom: 120px;
+  }
 `;
 
 export const ContentWrapper = styled.div`
 position: relative;
-height: calc(100vh - 200px);
+  height: calc(100vh - 200px);
+  z-index: 1;
 `;
 
 export const YearFolder = styled.div`
@@ -155,7 +159,7 @@ width: 100%;
 max-width: 1200px;
 padding: 20px;
 background: linear-gradient(to top, white 60%, transparent);
-z-index: 100;  
+z-index: 10;  
 pointer-events: none; 
 
  button {
