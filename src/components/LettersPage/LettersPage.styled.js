@@ -164,7 +164,6 @@ export const Button = styled.button`
   }
 
   &::before {
-    content: '+';
     font-size: 1.5rem;
     margin-right: 8px;
     font-weight: 400;

@@ -3,21 +3,35 @@ export const organizeLettersByYear = (letters) => {
     return [];
   }
 
-  // Создаем Map для группировки писем по году открытия
   const lettersByYear = new Map();
+  const currentDate = new Date();
 
   letters.forEach(letter => {
-    const openDate = new Date(letter.opened_at);
-    const year = openDate.getFullYear();
+     const openDate = new Date(letter.opened_at);
     
-    if (!lettersByYear.has(year)) {
-      lettersByYear.set(year, []);
+     if (!openDate || openDate.getFullYear() === 1970 || isNaN(openDate.getTime())) {
+       const year = currentDate.getFullYear();
+      
+      if (!lettersByYear.has(year)) {
+        lettersByYear.set(year, []);
+      }
+      
+       lettersByYear.get(year).push({
+        ...letter,
+        opened_at: currentDate.toISOString()
+      });
+    } else {
+      const year = openDate.getFullYear();
+      
+      if (!lettersByYear.has(year)) {
+        lettersByYear.set(year, []);
+      }
+      
+      lettersByYear.get(year).push(letter);
     }
-    lettersByYear.get(year).push(letter);
   });
 
-  // Преобразуем Map в массив и сортируем года
-  const sortedYears = Array.from(lettersByYear.entries())
+   const sortedYears = Array.from(lettersByYear.entries())
     .sort(([yearA], [yearB]) => yearA - yearB)
     .map(([year, yearLetters]) => ({
       year: String(year),
