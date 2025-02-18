@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import envelopeIcon from "../../../public/letter.jpeg";
+import envelopeIcon from "../../../src/assets/letter.jpeg";
 
 export const Overlay = styled.div`
   position: fixed;

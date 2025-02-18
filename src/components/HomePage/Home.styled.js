@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import backgroundImage from "../../assets/background_picture.jpeg";
 
 export const HomeContainer = styled.div`
@@ -50,3 +51,6 @@ export const Button = styled.button`
   }
 `;
 
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
