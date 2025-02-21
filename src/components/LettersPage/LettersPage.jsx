@@ -1,4 +1,4 @@
- import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   PageContainer,
@@ -7,12 +7,13 @@ import {
   Button
 } from './LettersPage.styled';
 
- import LettersList from './components/LettersList';
+import LettersList from './components/LettersList';
 import Modal from '../CreateLetter/CreateLetter';
 import ReadLetterModal from '../ReadLetter/ReadLetter';
 
- import { AppContext } from '../../contexts/AppContext';
+import { AppContext } from '../../contexts/AppContext';
 import { removeToken } from '../../utils/setGetAndRemoveToken';
+import { checkAuthToken } from '../../services/authService';
 import {
   getLetters,
   createLetter,
@@ -41,9 +42,22 @@ const LettersPage = () => {
     navigate('/login');
   };
 
+  const verifyAuthentication = async () => {
+    const isTokenValid = await checkAuthToken();
+    if (!isTokenValid) {
+      handleAuthError();
+      return false;
+    }
+    return true;
+  };
+
   const loadLetters = async () => {
     try {
       setLoading(true);
+      
+       const isTokenValid = await verifyAuthentication();
+      if (!isTokenValid) return;
+
       const response = await getLetters();
 
       const lettersWithDeliveryDate = response.map((letter) => ({
@@ -55,7 +69,7 @@ const LettersPage = () => {
       setError(null);
     } catch (err) {
       console.error('Error fetching letters:', err);
-      if (err.message.includes('Invalid token') || err.response?.status === 401) {
+      if (err.response?.status === 401) {
         handleAuthError();
         return;
       }
@@ -80,13 +94,13 @@ const LettersPage = () => {
 
   const handleOpenReadLetterModal = async (letter) => {
     try {
+      const isTokenValid = await verifyAuthentication();
+      if (!isTokenValid) return;
+
       const fullLetter = await getLetterById(letter.id);
       setSelectedLetter(fullLetter);
     } catch (err) {
       console.error('Error fetching letter details:', err);
-      if (err.response?.status === 401) {
-        handleAuthError();
-      }
     }
   };
 
@@ -94,7 +108,10 @@ const LettersPage = () => {
     setSelectedLetter(null);
   };
 
-  const handleOpenModal = () => {
+  const handleOpenModal = async () => {
+    const isTokenValid = await verifyAuthentication();
+    if (!isTokenValid) return;
+    
     setIsModalOpen(true);
   };
 
@@ -104,6 +121,9 @@ const LettersPage = () => {
 
   const handleAddLetter = async (newLetter) => {
     try {
+      const isTokenValid = await verifyAuthentication();
+      if (!isTokenValid) return;
+
       await createLetter({
         ...newLetter,
         user_id: user.id,
@@ -112,9 +132,6 @@ const LettersPage = () => {
       setIsModalOpen(false);
     } catch (err) {
       console.error('Error creating letter:', err);
-      if (err.response?.status === 401) {
-        handleAuthError();
-      }
     }
   };
 
@@ -139,9 +156,9 @@ const LettersPage = () => {
       </ButtonContainer>
 
       {isModalOpen && (
-        <Modal 
-          onClose={handleCloseModal} 
-          onSubmit={handleAddLetter} 
+        <Modal
+          onClose={handleCloseModal}
+          onSubmit={handleAddLetter}
         />
       )}
 

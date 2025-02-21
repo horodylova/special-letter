@@ -64,3 +64,23 @@ export const logoutUser = async (token) => {
     return { error: 'Logout failed' };
   }
 };
+
+export const checkAuthToken = async () => {
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return false;
+    }
+
+     const response = await fetch(`${API_URL}/api/letters`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    return response.ok;
+  } catch (error) {
+    return false;
+  }
+};
