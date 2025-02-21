@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../../contexts/AppContext';
 import { loginUser } from '../../../services/authService';
@@ -16,8 +16,14 @@ import {
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setIsAuthenticated, setUser, setError, loading, setLoading, error } = useContext(AppContext);
-  
+  const { setIsAuthenticated, setUser, setError, setLoading, error } = useContext(AppContext);
+
+   useEffect(() => {
+    setLoading(false);
+  }, [setLoading]);
+
+   const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -33,7 +39,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setIsSubmitting(true);
     setError(null);
 
     try {
@@ -56,7 +62,7 @@ const Login = () => {
     } catch (error) {
       setError('Login failed. Please try again or register if you don\'t have an account.');
     } finally {
-      setLoading(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -91,8 +97,8 @@ const Login = () => {
 
         {error && <ErrorMessage>{error}</ErrorMessage>}
 
-        <SubmitButton type="submit" disabled={loading}>
-          {loading ? 'Logging in...' : 'Login'}
+        <SubmitButton type="submit" disabled={isSubmitting}>
+          {isSubmitting ? 'Logging in...' : 'Login'}
         </SubmitButton>
       </LoginForm>
     </LoginContainer>

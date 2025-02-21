@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../../contexts/AppContext';
 import { registerUser } from '../../../services/authService';
@@ -17,11 +17,17 @@ import {
 const CreateNewUser = () => {
   const navigate = useNavigate();
   const { setIsAuthenticated, setUser, setError, loading, setLoading, error } = useContext(AppContext);
-  
+
+   useEffect(() => {
+    setLoading(false);
+  }, [setLoading]);
+
   const [formData, setFormData] = useState({
     username: '',
     password: '',
   });
+
+   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,7 +39,7 @@ const CreateNewUser = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setIsSubmitting(true);
     setError(null);
 
     try {
@@ -48,7 +54,7 @@ const CreateNewUser = () => {
     } catch (error) {
       setError(error.message);
     } finally {
-      setLoading(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -85,8 +91,8 @@ const CreateNewUser = () => {
 
         {error && <ErrorMessage>{error}</ErrorMessage>}
 
-        <SubmitButton type="submit" disabled={loading}>
-          {loading ? 'Creating Account...' : 'Create Account'}
+        <SubmitButton type="submit" disabled={isSubmitting}>
+          {isSubmitting ? 'Creating Account...' : 'Create Account'}
         </SubmitButton>
       </RegisterForm>
     </RegisterContainer>
