@@ -1,15 +1,15 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
- 
+
 export const HomeContainer = styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-text-align: center;
-height: 100vh;  
-background-size: cover;
-overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100vh;
+  background-size: cover;
+  overflow: hidden;
 `;
 
 export const ContentWrapper = styled.div`
@@ -34,6 +34,22 @@ export const Description = styled.p`
   margin-bottom: 30px;
 `;
 
+export const ButtonsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+
+  a {
+    text-decoration: none;
+  }
+
+  /* Если внутри контейнера только одна ссылка, центрируем её */
+  a:only-child {
+    margin: 0 auto;
+  }
+`;
+
 export const Button = styled.button`
   background-color: #e76f51;
   color: white;
@@ -43,19 +59,12 @@ export const Button = styled.button`
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+  min-width: 120px;
 
   &:hover {
     background-color: #d35400;
   }
 `;
-
-export const ButtonsContainer = styled.div`
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  flex-wrap: wrap;
-`;
-
 
 export const StyledLink = styled(Link)`
   text-decoration: none;
