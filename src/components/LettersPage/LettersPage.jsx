@@ -20,6 +20,8 @@ import {
   getLetterById,
 } from '../../services/lettersService';
 
+import Loader from "../Loader/Loader";
+
 const LettersPage = () => {
   const navigate = useNavigate();
   const {
@@ -139,7 +141,7 @@ const LettersPage = () => {
     <PageContainer>
       <ContentWrapper>
         {loading ? (
-          <div className="text-center p-4">Loading...</div>
+          <Loader/>
         ) : error ? (
           <div className="text-center text-red-500 p-4">{error}</div>
         ) : (
