@@ -67,6 +67,9 @@ export const TextArea = styled.textarea`
   background-color: #fff;
   resize: none;
   height: 120px;
+  white-space: pre-wrap;
+  font-family: inherit;
+  line-height: 1.5;
 `;
 
 export const SubmitButton = styled.button`

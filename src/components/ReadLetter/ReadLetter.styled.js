@@ -17,11 +17,14 @@ export const ModalContainer = styled.div`
   background: white;
   width: 70%;
   max-width: 800px;
+  max-height: 90vh;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: 20px;
   position: relative;
   z-index: 1001;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const CloseButton = styled.button`
@@ -32,27 +35,55 @@ export const CloseButton = styled.button`
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
+  z-index: 2;
 `;
 
 export const Header = styled.h2`
   font-size: 1.5rem;
-  margin-bottom: 20px;
+  margin: 0 0 20px 0;
+  padding-right: 30px;
 `;
 
 export const ContentWrapper = styled.div`
-  display: block;
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 10px;
+  margin-bottom: 20px;
+
+   &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 `;
 
 export const Image = styled.img`
   width: 40%;
   margin: 0 20px 20px 0;
   float: left;
+  border-radius: 8px;
 `;
 
 export const Text = styled.p`
   font-size: 1rem;
   line-height: 1.6;
   text-align: justify;
+  white-space: pre-wrap;
+  font-family: inherit;
+  margin: 0;
+  padding: 15px;
 
   &::after {
     content: "";
@@ -62,8 +93,7 @@ export const Text = styled.p`
 `;
 
 export const DeleteButton = styled.button`
-  display: block;
-  margin: 20px auto;
+  margin: 0 auto;
   padding: 12px 24px;
   font-size: 1rem;
   font-weight: bold;
@@ -73,6 +103,8 @@ export const DeleteButton = styled.button`
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s;
+  position: sticky;
+  bottom: 0;
 
   &:hover {
     background-color: #d35400;

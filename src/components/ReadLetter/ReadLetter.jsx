@@ -13,6 +13,7 @@ import sampleImage from "../../assets/article_image.jpg";
 import ConfirmDelete from "../ConfirmDelete/ConfirmDelete";
 
 import { deleteLetter } from "../../services/lettersService"; 
+import formatLetterText from "../../utils/formatLetterText";
 
 const ReadLetterModal = ({ onClose, letter, onLetterDelete }) => {
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
@@ -32,7 +33,9 @@ const ReadLetterModal = ({ onClose, letter, onLetterDelete }) => {
         <Header>Your Special Letter</Header>
         <ContentWrapper>
           <Image src={sampleImage} alt="Decorative" />
-          <Text>{letter.rows[0].letter_text}</Text>
+          <Text>
+            {formatLetterText(letter.rows[0].letter_text)}
+          </Text>
         </ContentWrapper>
         <DeleteButton onClick={handleOpenConfirmDelete}>
           Delete Letter
