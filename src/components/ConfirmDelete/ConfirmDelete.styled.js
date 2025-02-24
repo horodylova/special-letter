@@ -46,3 +46,46 @@ export const Message = styled.p`
   max-width: 600px;
   margin: 0 auto;
 `;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+`;
+
+export const Button = styled.button`
+  padding: 10px 25px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid #ccc;
+  
+  &:first-child {
+    background-color: #f9f6f1;
+    color: #333;
+    
+    &:hover {
+      background-color: #eee;
+    }
+  }
+  
+  &:last-child {
+    background-color: #e76f51;
+    color: white;
+    border-color: #e76f51;
+    
+    &:hover {
+      background-color: #e85d3d;
+    }
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:hover {
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  }
+`;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Overlay,
   ModalContainer,
@@ -10,22 +10,19 @@ import {
   DeleteButton,
 } from "./ReadLetter.styled";
 import sampleImage from "../../assets/article_image.jpg";
-import { deleteLetter } from "../../services/lettersService";
+import ConfirmDelete from "../ConfirmDelete/ConfirmDelete";
 
+import { deleteLetter } from "../../services/lettersService"; 
 
 const ReadLetterModal = ({ onClose, letter, onLetterDelete }) => {
-  const handleDelete = async () => {
-    try {
-      const isDeleted = await deleteLetter(letter.rows[0].id);
-      if (isDeleted) {
-        onClose();
-        if (onLetterDelete) {
-          onLetterDelete();
-        }
-      }
-    } catch (error) {
-      console.error("Error deleting letter:", error);
-    }
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+
+  const handleOpenConfirmDelete = () => {
+    setShowConfirmDelete(true);
+  };
+
+  const handleCloseConfirmDelete = () => {
+    setShowConfirmDelete(false);
   };
 
   return (
@@ -37,9 +34,28 @@ const ReadLetterModal = ({ onClose, letter, onLetterDelete }) => {
           <Image src={sampleImage} alt="Decorative" />
           <Text>{letter.rows[0].letter_text}</Text>
         </ContentWrapper>
-        <DeleteButton onClick={handleDelete}>
+        <DeleteButton onClick={handleOpenConfirmDelete}>
           Delete Letter
         </DeleteButton>
+
+        {showConfirmDelete && (
+          <ConfirmDelete
+            onClose={handleCloseConfirmDelete}
+            onConfirm={async () => {
+              try {
+                const isDeleted = await deleteLetter(letter.rows[0].id);
+                if (isDeleted) {
+                  onClose();
+                  if (onLetterDelete) {
+                    onLetterDelete();
+                  }
+                }
+              } catch (error) {
+                console.error("Error deleting letter:", error);
+              }
+            }}
+          />
+        )}
       </ModalContainer>
     </Overlay>
   );
