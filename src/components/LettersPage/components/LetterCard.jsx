@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Card,
   CardImage,
@@ -7,9 +7,21 @@ import {
   Button
 } from '../LettersPage.styled';
 import cardImage from "../../../assets/letter_card.jpeg";
+import decryptText from '../../../utils/decryptText';
+
 const LetterCard = ({ letter, onOpenLetter, formatDate }) => {
   const openDate = new Date(letter.opened_at);
   const today = new Date();
+  const [isDecrypted, setIsDecrypted] = useState(false);
+
+  const handleOpenLetter = () => {
+     const decryptedLetter = {
+      ...letter,
+      decrypted_text: decryptText(letter.letter_text)
+    };
+    
+    onOpenLetter(decryptedLetter);
+  };
 
   return (
     <Card>
@@ -24,9 +36,12 @@ const LetterCard = ({ letter, onOpenLetter, formatDate }) => {
             <CardTitle>
               {`Letter created ${formatDate(letter.created_at)}`}
             </CardTitle>
-            <Button onClick={() => onOpenLetter(letter)}>
+            <Button onClick={handleOpenLetter}>
               Time to open the letter
             </Button>
+            {/* <Button onClick={() => onOpenLetter(letter)}>
+              Time to open the letter
+            </Button> */}
           </>
         )}
       </CardContent>
