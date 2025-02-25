@@ -34,7 +34,7 @@ const ReadLetterModal = ({ onClose, letter, onLetterDelete }) => {
         <ContentWrapper>
           <Image src={sampleImage} alt="Decorative" />
           <Text>
-            {formatLetterText(letter.rows[0].letter_text)}
+            {formatLetterText(letter.letter_text)}
           </Text>
         </ContentWrapper>
         <DeleteButton onClick={handleOpenConfirmDelete}>
@@ -46,7 +46,7 @@ const ReadLetterModal = ({ onClose, letter, onLetterDelete }) => {
             onClose={handleCloseConfirmDelete}
             onConfirm={async () => {
               try {
-                const isDeleted = await deleteLetter(letter.rows[0].id);
+                const isDeleted = await deleteLetter(letter.id);
                 if (isDeleted) {
                   onClose();
                   if (onLetterDelete) {

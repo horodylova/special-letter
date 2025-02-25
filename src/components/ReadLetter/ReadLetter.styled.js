@@ -76,7 +76,7 @@ export const Image = styled.img`
   border-radius: 8px;
 `;
 
-export const Text = styled.p`
+export const Text = styled.article`
   font-size: 1rem;
   line-height: 1.6;
   text-align: justify;
