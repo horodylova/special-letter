@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Overlay, ModalContainer, CloseButton, Input, SubmitButton, Form, Label, TextArea, } from "./CreateLetter.styled";
 import { createLetter } from "../../services/lettersService";  
 
-const Modal = ({ onClose, userId }) => {  
+const Modal = ({ onClose, userId , onSubmit}) => {  
   const [formData, setFormData] = useState({
     text: "",
     deliveryDate: "",
@@ -19,24 +19,18 @@ const Modal = ({ onClose, userId }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-       const letterData = {
-        user_id: userId,  
-        text: formData.text,
-        deliveryDate: formData.deliveryDate  
-      };
-      
-      await createLetter(letterData);
-      setStatusMessage("Your letter has been saved and sent!");
-      setFormData({
-        text: "",
-        deliveryDate: "",
-      });
-      onClose();
-    } catch (error) {
-      setStatusMessage("Failed to send your letter. Please try again.");
-      console.error(error);
-    }
+    await onSubmit({
+      user_id: userId,  
+      text: formData.text,
+      deliveryDate: formData.deliveryDate,
+    });
+
+    setFormData({
+      text: "",
+      deliveryDate: "",
+    });
+
+    onClose();
   };
 
   return (
