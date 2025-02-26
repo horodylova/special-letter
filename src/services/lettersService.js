@@ -28,10 +28,8 @@ export const createLetter = async (letterData) => {
     const currentDate = new Date();
     const selectedDate = new Date(letterData.deliveryDate);
     
-    const opened_at = selectedDate > currentDate 
-      ? selectedDate.toISOString() 
-      : null;
-
+    const opened_at = selectedDate.toISOString();
+    
     const response = await fetch(`${API_URL}/api/letters`, {
       method: 'POST',
       headers: {
@@ -41,16 +39,16 @@ export const createLetter = async (letterData) => {
       body: JSON.stringify({
         user_id: letterData.user_id,
         created_at: currentDate.toISOString(),
-        opened_at: opened_at,
+        opened_at: opened_at,  
         letter_text: letterData.text
       }),
     });
-    
+
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.message || 'Failed to create letter');
     }
-    
+
     return await response.json();
   } catch (error) {
     throw error;

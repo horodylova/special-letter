@@ -19,6 +19,7 @@ import {
   createLetter,
   getLetterById,
 } from '../../services/lettersService';
+import decryptText from '../../utils/decryptText';
 
 import Loader from "../Loader/Loader";
 
@@ -98,9 +99,23 @@ const LettersPage = () => {
     try {
       const isTokenValid = await verifyAuthentication();
       if (!isTokenValid) return;
-
-      const fullLetter = await getLetterById(letter.id);
-      setSelectedLetter(fullLetter);
+  
+       if (letter.decrypted_text) {
+        setSelectedLetter(letter);
+      } else {
+         const fullLetter = await getLetterById(letter.id);
+        
+         try {
+          const decryptedText = decryptText(fullLetter.letter_text);
+          setSelectedLetter({
+            ...fullLetter,
+            decrypted_text: decryptedText
+          });
+        } catch (decryptErr) {
+          console.error('Error decrypting letter:', decryptErr);
+          setSelectedLetter(fullLetter);
+        }
+      }
     } catch (err) {
       console.error('Error fetching letter details:', err);
     }

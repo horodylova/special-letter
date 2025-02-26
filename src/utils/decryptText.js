@@ -1,33 +1,33 @@
 import CryptoJS from 'crypto-js';
-import { ENCRYPTION_KEY } from '../configs/crypto';
 
+const ENCRYPTION_KEY = import.meta.env.VITE_ENCRYPTION_KEY;
 
-export const decryptText = (encryptedText) => {
+const decryptText = (encryptedText) => {
   try {
-     if (!encryptedText || !encryptedText.includes(':')) {
-      return encryptedText;
-    }
-
-     const [ivHex, encrypted] = encryptedText.split(':');
+    if (!encryptedText || !encryptedText.includes(':')) return encryptedText;
     
-     const iv = CryptoJS.enc.Hex.parse(ivHex);
+    const [ivHex, encrypted] = encryptedText.split(':');
+    const iv = CryptoJS.enc.Hex.parse(ivHex);
     
-     const key = CryptoJS.enc.Utf8.parse(ENCRYPTION_KEY.padEnd(32).slice(0, 32));
+    if (!ENCRYPTION_KEY) throw new Error('Encryption key is missing');
     
-     const decrypted = CryptoJS.AES.decrypt(
-      encrypted,
+    // Используем ключ в таком же формате, как в бэкенде
+    const paddedKey = ENCRYPTION_KEY.padEnd(32).slice(0, 32);
+    const key = CryptoJS.enc.Hex.parse(CryptoJS.enc.Utf8.parse(paddedKey).toString(CryptoJS.enc.Hex));
+    
+    const decrypted = CryptoJS.AES.decrypt(
+      { ciphertext: CryptoJS.enc.Hex.parse(encrypted) },
       key,
-      { 
-        iv: iv,
-        mode: CryptoJS.mode.CBC,
-        padding: CryptoJS.pad.Pkcs7
-      }
+      { iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 }
     );
     
-     return decrypted.toString(CryptoJS.enc.Utf8);
+    const result = decrypted.toString(CryptoJS.enc.Utf8);
+    if (!result) throw new Error('Decryption resulted in empty string');
+    
+    return result;
   } catch (error) {
-    console.error('Decryption error:', error);
-    return 'Error decrypting message';
+    console.error('Ошибка дешифрования:', error);
+    return 'Error while decrypting';
   }
 };
 

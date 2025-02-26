@@ -12,8 +12,7 @@ import {
 import sampleImage from "../../assets/article_image.jpg";
 import ConfirmDelete from "../ConfirmDelete/ConfirmDelete";
 
-import { deleteLetter } from "../../services/lettersService"; 
-import formatLetterText from "../../utils/formatLetterText";
+import { deleteLetter } from "../../services/lettersService";
 
 const ReadLetterModal = ({ onClose, letter, onLetterDelete }) => {
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
@@ -34,7 +33,7 @@ const ReadLetterModal = ({ onClose, letter, onLetterDelete }) => {
         <ContentWrapper>
           <Image src={sampleImage} alt="Decorative" />
           <Text>
-            {formatLetterText(letter.letter_text)}
+            {letter.decrypted_text || 'Не удалось расшифровать письмо'}
           </Text>
         </ContentWrapper>
         <DeleteButton onClick={handleOpenConfirmDelete}>

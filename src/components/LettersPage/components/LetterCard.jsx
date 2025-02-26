@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   Card,
   CardImage,
@@ -12,15 +12,23 @@ import decryptText from '../../../utils/decryptText';
 const LetterCard = ({ letter, onOpenLetter, formatDate }) => {
   const openDate = new Date(letter.opened_at);
   const today = new Date();
-  const [isDecrypted, setIsDecrypted] = useState(false);
-
+ 
   const handleOpenLetter = () => {
-     const decryptedLetter = {
-      ...letter,
-      decrypted_text: decryptText(letter.letter_text)
-    };
-    
-    onOpenLetter(decryptedLetter);
+    try {
+       const decryptedText = decryptText(letter.letter_text);
+      
+       const decryptedLetter = {
+        ...letter,
+        decrypted_text: decryptedText
+      };
+      
+      console.log("Расшифрованное письмо:", decryptedLetter);
+      
+       onOpenLetter(decryptedLetter);
+    } catch (error) {
+      console.error("Ошибка при расшифровке:", error);
+       onOpenLetter(letter);
+    }
   };
 
   return (

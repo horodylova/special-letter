@@ -1,21 +1,12 @@
 import React, { useState } from "react";
-import {   
-  Overlay,   
-  ModalContainer,   
-  CloseButton,   
-  Input,   
-  SubmitButton,   
-  Form,   
-  Label,   
-  TextArea, 
-} from "./CreateLetter.styled";
+import { Overlay, ModalContainer, CloseButton, Input, SubmitButton, Form, Label, TextArea, } from "./CreateLetter.styled";
+import { createLetter } from "../../services/lettersService";  
 
-const Modal = ({ onClose, onSubmit }) => {
+const Modal = ({ onClose, userId }) => {  
   const [formData, setFormData] = useState({
     text: "",
     deliveryDate: "",
   });
-
   const [statusMessage, setStatusMessage] = useState("");
 
   const handleChange = (e) => {
@@ -29,13 +20,19 @@ const Modal = ({ onClose, onSubmit }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await onSubmit(formData);
+       const letterData = {
+        user_id: userId,  
+        text: formData.text,
+        deliveryDate: formData.deliveryDate  
+      };
+      
+      await createLetter(letterData);
       setStatusMessage("Your letter has been saved and sent!");
       setFormData({
         text: "",
         deliveryDate: "",
       });
-      onClose();  
+      onClose();
     } catch (error) {
       setStatusMessage("Failed to send your letter. Please try again.");
       console.error(error);
@@ -65,7 +62,7 @@ const Modal = ({ onClose, onSubmit }) => {
               name="deliveryDate"
               value={formData.deliveryDate}
               onChange={handleChange}
-              min={new Date().toISOString().split('T')[0]} 
+              min={new Date().toISOString().split('T')[0]}
               required
             />
           </Label>
