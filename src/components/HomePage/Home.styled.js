@@ -44,8 +44,7 @@ export const ButtonsContainer = styled.div`
     text-decoration: none;
   }
 
-  /* Если внутри контейнера только одна ссылка, центрируем её */
-  a:only-child {
+   a:only-child {
     margin: 0 auto;
   }
 `;

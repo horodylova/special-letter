@@ -22,12 +22,10 @@ const LetterCard = ({ letter, onOpenLetter, formatDate }) => {
         decrypted_text: decryptedText
       };
       
-      console.log("Расшифрованное письмо:", decryptedLetter);
-      
+       
        onOpenLetter(decryptedLetter);
     } catch (error) {
-      console.error("Ошибка при расшифровке:", error);
-       onOpenLetter(letter);
+        onOpenLetter(letter);
     }
   };
 
@@ -47,9 +45,6 @@ const LetterCard = ({ letter, onOpenLetter, formatDate }) => {
             <Button onClick={handleOpenLetter}>
               Time to open the letter
             </Button>
-            {/* <Button onClick={() => onOpenLetter(letter)}>
-              Time to open the letter
-            </Button> */}
           </>
         )}
       </CardContent>

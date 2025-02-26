@@ -11,8 +11,7 @@ const decryptText = (encryptedText) => {
     
     if (!ENCRYPTION_KEY) throw new Error('Encryption key is missing');
     
-    // Используем ключ в таком же формате, как в бэкенде
-    const paddedKey = ENCRYPTION_KEY.padEnd(32).slice(0, 32);
+     const paddedKey = ENCRYPTION_KEY.padEnd(32).slice(0, 32);
     const key = CryptoJS.enc.Hex.parse(CryptoJS.enc.Utf8.parse(paddedKey).toString(CryptoJS.enc.Hex));
     
     const decrypted = CryptoJS.AES.decrypt(
@@ -26,8 +25,7 @@ const decryptText = (encryptedText) => {
     
     return result;
   } catch (error) {
-    console.error('Ошибка дешифрования:', error);
-    return 'Error while decrypting';
+     return 'Error while decrypting';
   }
 };
 
