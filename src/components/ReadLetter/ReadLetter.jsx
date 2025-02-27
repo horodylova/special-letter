@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import {
   Overlay,
   ModalContainer,
-  CloseButton,
-  Header,
+   Header,
   Image,
   ContentWrapper,
   Text,
   DeleteButton,
 } from "./ReadLetter.styled";
+
+import { CloseButton } from "../Styles/CloseButton.styled";
 import sampleImage from "../../assets/article_image.jpg";
 import ConfirmDelete from "../ConfirmDelete/ConfirmDelete";
 
@@ -28,8 +29,8 @@ const ReadLetterModal = ({ onClose, letter, onLetterDelete }) => {
   return (
     <Overlay>
       <ModalContainer>
-        <CloseButton onClick={onClose}>×</CloseButton>
-        <Header>Your Special Letter</Header>
+      <CloseButton onClick={onClose} />
+      <Header>Your Special Letter</Header>
         <ContentWrapper>
           <Image src={sampleImage} alt="Decorative" />
           <Text>

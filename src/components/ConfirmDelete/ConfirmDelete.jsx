@@ -2,17 +2,17 @@ import React from "react";
 import {
   Overlay,
   ModalContainer,
-  CloseButton,
   Message,
   Button,
   ButtonsContainer
 } from "./ConfirmDelete.styled";
+import { CloseButton } from "../Styles/CloseButton.styled";
  
 const ConfirmDelete = ({ onClose, onConfirm }) => {
   return (
     <Overlay>
       <ModalContainer>
-        <CloseButton onClick={onClose}>×</CloseButton>
+        <CloseButton onClick={onClose} />
         <Message>
           We just want to make sure. Do you really want to delete this letter?
         </Message>

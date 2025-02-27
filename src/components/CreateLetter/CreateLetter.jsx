@@ -1,14 +1,25 @@
 import React, { useState } from "react";
-import { Overlay, ModalContainer, CloseButton, Input, SubmitButton, Form, Label, TextArea, } from "./CreateLetter.styled";
-import { createLetter } from "../../services/lettersService";  
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import {
+  Overlay,
+  ModalContainer,
+  SubmitButton,
+  Form,
+  Label,
+  TextArea,
+  DatePickerWrapper
+} from "./CreateLetter.styled";
 
-const Modal = ({ onClose, userId , onSubmit}) => {  
+import { CloseButton } from "../Styles/CloseButton.styled";
+
+const Modal = ({ onClose, userId, onSubmit }) => {
   const [formData, setFormData] = useState({
     text: "",
-    deliveryDate: "",
+    deliveryDate: null,
   });
   const [statusMessage, setStatusMessage] = useState("");
-
+    
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -16,27 +27,41 @@ const Modal = ({ onClose, userId , onSubmit}) => {
       [name]: value,
     }));
   };
-
+  
+  const handleDateChange = (date) => {
+    setFormData((prev) => ({
+      ...prev,
+      deliveryDate: date
+    }));
+  };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
+     
+    const formattedDate = formData.deliveryDate
+      ? formData.deliveryDate.toISOString().split('T')[0]
+      : "";
+    
     await onSubmit({
-      user_id: userId,  
+      user_id: userId,
       text: formData.text,
-      deliveryDate: formData.deliveryDate,
+      deliveryDate: formattedDate,
     });
-
+      
     setFormData({
       text: "",
-      deliveryDate: "",
+      deliveryDate: null,
     });
-
+      
     onClose();
   };
-
+   
+  const today = new Date();
+  
   return (
     <Overlay>
       <ModalContainer>
-        <CloseButton onClick={onClose}>×</CloseButton>
+        <CloseButton onClick={onClose} />
         <h2>Write Your Letter</h2>
         <Form onSubmit={handleSubmit}>
           <Label>
@@ -51,16 +76,23 @@ const Modal = ({ onClose, userId , onSubmit}) => {
           </Label>
           <Label>
             Delivery Date:
-            <Input
-              type="date"
-              name="deliveryDate"
-              value={formData.deliveryDate}
-              onChange={handleChange}
-              min={new Date().toISOString().split('T')[0]}
-              required
-            />
+            <DatePickerWrapper>
+              <DatePicker
+                selected={formData.deliveryDate}
+                onChange={handleDateChange}
+                minDate={today}
+                placeholderText="Select delivery date"
+                dateFormat="MMMM d, yyyy"
+                required
+                className="datepicker-input"
+                showMonthDropdown
+                showYearDropdown
+                dropdownMode="select"
+                yearDropdownItemNumber={10}
+              />
+            </DatePickerWrapper>
           </Label>
-          <SubmitButton type="submit"></SubmitButton>
+          <SubmitButton type="submit" />
         </Form>
         {statusMessage && <p>{statusMessage}</p>}
       </ModalContainer>

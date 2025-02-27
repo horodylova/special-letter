@@ -22,21 +22,7 @@ export const ModalContainer = styled.div`
   text-align: center;
   position: relative;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-`;
-
-export const CloseButton = styled.button`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 20px;
-  color: #333;
-  cursor: pointer;
-
-  &:hover {
-    color: #e76f51;
-  }
+  padding-top: 40px;
 `;
 
 export const Message = styled.p`
