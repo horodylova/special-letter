@@ -38,6 +38,16 @@ const Modal = ({ onClose, userId, onSubmit }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
      
+    if (!formData.text.trim()) {
+      setStatusMessage("Please enter your letter.");
+      return;
+    }
+    
+    if (!formData.deliveryDate) {
+      setStatusMessage("Please select a delivery date.");
+      return;
+    }
+
     const formattedDate = formData.deliveryDate
       ? formData.deliveryDate.toISOString().split('T')[0]
       : "";
@@ -63,7 +73,7 @@ const Modal = ({ onClose, userId, onSubmit }) => {
       <ModalContainer>
         <CloseButton onClick={onClose} />
         <h2>Write Your Letter</h2>
-        <Form onSubmit={handleSubmit}>
+        <Form noValidate onSubmit={handleSubmit}>
           <Label>
             Your Letter:
             <TextArea
@@ -71,8 +81,7 @@ const Modal = ({ onClose, userId, onSubmit }) => {
               value={formData.text}
               onChange={handleChange}
               placeholder="Write your message here..."
-              required
-            />
+             />
           </Label>
           <Label>
             Delivery Date:
@@ -83,8 +92,7 @@ const Modal = ({ onClose, userId, onSubmit }) => {
                 minDate={today}
                 placeholderText="Select delivery date"
                 dateFormat="MMMM d, yyyy"
-                required
-                className="datepicker-input"
+                 className="datepicker-input"
                 showMonthDropdown
                 showYearDropdown
                 dropdownMode="select"
