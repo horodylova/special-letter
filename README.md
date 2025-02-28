@@ -75,7 +75,8 @@ This encryption process ensures that even if someone gained access to the databa
 ### Installation
 1. Clone the repository
    ```
-   git clone https://github.com/yourusername/special-letter.git
+   git clone https://github.com/horodylova/special-letter.git
+   git clone https://github.com/horodylova/special-leter-backend.git
    cd special-letter
    ```
 
@@ -118,10 +119,10 @@ This encryption process ensures that even if someone gained access to the databa
 2. Start the frontend development server
    ```
    cd frontend
-   npm start
+   npm run dev
    ```
 
-3. Access the application at `http://localhost:3000`
+3. Access the application at `http://localhost:1573`
 
 ## Testing
 Create a letter with today's date to test the complete flow immediately. The letter will be accessible right away.
