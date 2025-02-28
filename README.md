@@ -48,21 +48,20 @@ Special Letter is a full-stack application that allows users to write letters to
 - **Content Encryption**: All letter content is encrypted before storage
 - **Date Verification Protocol**: The system verifies past, present, and future dates
 - **Console Protection**: Prevents unauthorized access to letter content via browser console
-
-  ## Letter Encryption Process
+## Letter Encryption Process
 
 Special Letter uses encryption to ensure your messages remain private until their scheduled opening date. Below is a visual demonstration of how the encryption and decryption process works:
 
 ### 1. Original Letter Content
-![Original letter before encryption]([assets/1.jpg](https://github.com/horodylova/special-letter/blob/main/src/assets/1.jpg))
+![Original letter before encryption](https://github.com/horodylova/special-letter/blob/main/src/assets/1.jpg?raw=true)
 *The user's original letter content as written in the interface*
 
 ### 2. Encrypted Storage
-![Encrypted letter in database]([assets/2.jpg](https://github.com/horodylova/special-letter/blob/main/src/assets/2.jpg))
+![Encrypted letter in database](https://github.com/horodylova/special-letter/blob/main/src/assets/2.jpg?raw=true)
 *How the encrypted letter appears when stored in the database*
 
 ### 3. Decrypted Letter on Opening Date
-![Decrypted letter when opened]([assets/3.jpg](https://github.com/horodylova/special-letter/blob/main/src/assets/3.jpg))
+![Decrypted letter when opened](https://github.com/horodylova/special-letter/blob/main/src/assets/3.jpg?raw=true)
 *The decrypted letter as it appears to the user on the scheduled opening date*
 
 This encryption process ensures that even if someone gained access to the database, they would not be able to read the contents of your letters without the encryption key.
