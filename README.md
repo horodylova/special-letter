@@ -1,4 +1,4 @@
-# Special Letter Project README
+# Special Letter Project
 
 ## Overview
 
