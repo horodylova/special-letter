@@ -1,155 +1,124 @@
+# Special Letter Project README
 
-# Special Letter Project
+## Overview
 
-This project allows users to write letters to their future selves, save them, and schedule them for delivery. It includes a React-based frontend, a PostgreSQL database for storing letters, and Kestra for orchestrating letter delivery.
+Special Letter is a full-stack application that allows users to write letters to their future selves. Users can compose messages, schedule them for delivery at a specific future date, and enjoy the experience of receiving their past thoughts when that date arrives.
 
-# About Idea
+## Address
+- Website: [https://special-letter-theta.vercel.app/](https://special-letter-theta.vercel.app/)
+- Backend Repository: [https://github.com/horodylova/special-leter-backend](https://github.com/horodylova/special-leter-backend)
 
-Imagine reading a letter you wrote to yourself 10 years ago. Today, you’re 17, and in 10 years, you’ll be 27. What will you be like? 
-Will you have a family? 
-Will you be famous? 
-Where will you live? 
-
-Travel through time with your letters. Write about your dreams, your concerns, and your hopes for yourself.
-
-How exciting will it be to open and read it years later?
-
-**A small tip:**
-
-Write a letter and set today’s date. 
-
-That way, you can open it right away. The other letters you write for the future will only be accessible on the date you set.
-
-
-## Requirements
-
-To work on this project, you will need:
 ## Features
 
-- Node.js (recommended version: 17.9.1)
-- npm (version: 8.11.0 or higher)
-- Docker (latest version)
-- Kestra (runs in a Docker container)
-- PostgreSQL (managed through Docker)
+- **Time Capsule Letters**: Write messages to your future self that will only be accessible on the specified date
+- **Secure Storage**: All letter content is encrypted for privacy and security
+- **Organized by Year**: Letters are automatically sorted into folders by year
+- **Immediate Testing**: Create letters with today's date to immediately test the experience
 
-## Roadmap
+## Technology Stack
 
+- **Frontend**: React
+- **Backend**: Node.js
+- **Database**: PostgreSQL
+- **Authentication**: JWT token-based authentication
+
+## How It Works
+
+### Letter Creation
+1. Users compose a letter through the React-based interface
+2. They select a future date when the letter should be accessible
+3. The letter is sent to the backend for processing
+
+### Storage Process
+1. The backend controller receives the letter and forwards it to the model
+2. The letter's content is encrypted using a 32-character key stored on the backend
+3. The encrypted letter is saved in the PostgreSQL database
+4. Letter metadata is organized by year for easy retrieval
+
+### Letter Retrieval
+1. When users log in, they can view all their previously written letters
+2. Letters with future opening dates remain locked and cannot be opened or deleted
+3. When the scheduled opening date arrives:
+   - The system uses the encryption key to decode the letter
+   - The decryption function restores the original text with proper formatting
+   - The letter becomes available for reading
+
+## Security Features
+
+- **Content Encryption**: All letter content is encrypted before storage
+- **Date Verification Protocol**: The system verifies past, present, and future dates
+- **Console Protection**: Prevents unauthorized access to letter content via browser console
+
+## Getting Started
+
+### Prerequisites
+- Node.js
+- PostgreSQL
+
+### Installation
+1. Clone the repository
+   ```
+   git clone https://github.com/yourusername/special-letter.git
+   cd special-letter
+   ```
+
+2. Install dependencies for backend
+   ```
+   cd backend
+   npm install
+   ```
+
+3. Install dependencies for frontend
+   ```
+   cd ../frontend
+   npm install
+   ```
+
+4. Set up the PostgreSQL database
+   ```
+   CREATE DATABASE special_letter;
+   ```
+
+5. Configure environment variables
+   Create a `.env` file in the backend directory with:
+   ```
+   DB_HOST=localhost
+   DB_PORT=5432
+   DB_NAME=special_letter
+   DB_USER=your_username
+   DB_PASSWORD=your_password
+   JWT_SECRET=your_jwt_secret
+   ENCRYPTION_KEY=your_32_character_key
+   ```
+
+### Running the Application
+1. Start the backend server
+   ```
+   cd backend
+   npm start
+   ```
+
+2. Start the frontend development server
+   ```
+   cd frontend
+   npm start
+   ```
+
+3. Access the application at `http://localhost:3000`
+
+## Testing
+Create a letter with today's date to test the complete flow immediately. The letter will be accessible right away.
+
+## Deployment
+The application can be deployed on any hosting service that supports Node.js and PostgreSQL.
+
+## Future Development
+- Mobile application
+- Email notifications when letters become available
+- Rich text formatting options
+- Image and attachment support
  
 
-## Installation
-
-**Step 1: Clone the Repository**
-
-```bash
-  git clone https://github.com/horodylova/special-letter.git
-cd special-letter
-```
-
-**Step 2: Install Dependencies**
-
-```bash
- npm install
-```
-
-**Step 3: Run the Frontend**
-
-Start the development server:
-
-``` bash 
-npm run dev
-```
-
-Open your browser and navigate to:
-
-http://localhost:5173
-
-**Step 4: Launch Docker Services**
-
-Start the Docker services for PostgreSQL and Kestra:
-
-```bash 
-docker-compose up -d
-```
-**Step 5: Configure the Database**
-Access the PostgreSQL database and create the required table:
-
-```bash 
-docker exec -it kestra_postgres psql -U kestra -d kestra
-```
-
-```
-CREATE TABLE letters (
-  id SERIAL PRIMARY KEY,
-  message TEXT NOT NULL,
-  open_at TIMESTAMP NOT NULL
-);
-```
-
-**Step 6: Configure Kestra Flow**
-
-Open the Kestra dashboard:
- 
-http://localhost:8080
-
-
-## Create a new flow with the following details:
-
-```
- id: special-letter
-namespace: app.emails
-
-tasks:
-  - id: log-input
-    type: io.kestra.plugin.core.log.Log
-    message: >
-      Received a letter:
-      Text: {{ trigger.body.text }}
-      Open At: {{ trigger.body.deliveryDate }}
-
-  - id: save-to-database
-    type: io.kestra.plugin.jdbc.postgresql.Query
-    url: jdbc:postgresql://kestra_postgres:5432/kestra
-    username: kestra
-    password: k3str4
-    sql: |
-      INSERT INTO letters (message, open_at) VALUES ('{{ trigger.body.text }}', '{{ trigger.body.deliveryDate }}');
-
-triggers:
-  - id: webhook
-    type: io.kestra.plugin.core.trigger.Webhook
-    key: abcdefg
-```
-
-**Step 7: Test and Play with the Project**
-
-Use the frontend to create and view letters.
-Verify that the letters are correctly stored in the letters table in the PostgreSQL database.
-Use tools like curl or Postman to interact with the webhook endpoint:
- 
-```bash 
-curl -X POST http://localhost:8080/api/v1/executions/webhook/app.emails/special-letter/abcdefg \
--H "Content-Type: application/json" \
--d '{
-  "text": "This is a letter to my future self.",
-  "deliveryDate": "2033-11-30"
-}'
-
-```
-
-## Tech Stack
-
-**Client:** React, styled-components, React Router
-
-**Docker
-Services:** PostgreSQL (database)
-Kestra (orchestrator)
-
-**URLs**
-Frontend: http://localhost:5173
-
-Kestra Dashboard: http://localhost:8080
-## Support
-
-For support, [Email Me](mailto:horodylova.sv@gmail.com)
-
+## Author
+Svitlana Horodylova
 
