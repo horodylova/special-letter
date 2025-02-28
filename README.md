@@ -82,19 +82,23 @@ This encryption process ensures that even if someone gained access to the databa
 
 2. Install dependencies for backend
    ```
-   cd backend
+   cd special-leter-backend
    npm install
    ```
 
 3. Install dependencies for frontend
    ```
-   cd ../frontend
+   cd special-letter
    npm install
    ```
 
-4. Set up the PostgreSQL database
+4. Set up the PostgreSQL database and seed it
    ```
    CREATE DATABASE special_letter;
+   ```
+
+   ```
+   npm run setup-dbs npm run seed
    ```
 
 5. Configure environment variables
