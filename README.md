@@ -2,7 +2,7 @@
 
 ## Overview
 
-Special Letter is a full-stack application that allows users to write letters to their future selves. Users can compose messages, schedule them for delivery at a specific future date, and enjoy the experience of receiving their past thoughts when that date arrives.
+Special Letter is a full-stack application that allows users to write letters to their future selves. Users can compose messages, schedule them for delivery at a specific future date, and enjoy the experience of receiving their past thoughts when that date arrives. Updated 
 
 ## Address
 - Website: [https://special-letter-theta.vercel.app/](https://special-letter-theta.vercel.app/)
